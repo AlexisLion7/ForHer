@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Everything</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        --bg: linear-gradient(160deg, #ffdee9 0%, #b5fffc 100%);
+        --panel-bg: rgba(255, 255, 255, 0.82);
+        --text-primary: #3a2c51;
+        --text-subtle: rgba(58, 44, 81, 0.78);
+        --accent: #ff6f91;
+        --accent-soft: rgba(255, 111, 145, 0.16);
+        --accent-blue: #47a6ff;
+        --accent-blue-soft: rgba(71, 166, 255, 0.16);
+        --note-yellow: #fff6c5;
+        --note-mint: #dcf6f3;
+        --note-rose: #ffe1ec;
+        --shadow: rgba(58, 44, 81, 0.16);
+        --shadow-strong: rgba(58, 44, 81, 0.26);
+        --max-width: min(960px, 92vw);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 56px 16px 72px;
+        display: flex;
+        justify-content: center;
+        background: var(--bg);
+      }
+
+      main {
+        width: var(--max-width);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(32px, 5vw, 48px);
+        padding: clamp(32px, 5vw, 56px);
+        border-radius: clamp(24px, 4vw, 36px);
+        background: var(--panel-bg);
+        box-shadow: 0 28px 70px var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      header {
+        display: grid;
+        gap: 24px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 5vw, 3.6rem);
+        letter-spacing: 1.5px;
+        color: var(--text-primary);
+      }
+
+      header p {
+        margin: 0 auto;
+        max-width: 620px;
+        font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+        line-height: 1.65;
+        color: var(--text-subtle);
+      }
+
+      header .tagline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 6px 18px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.6);
+        color: rgba(58, 44, 81, 0.7);
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+
+      .signature {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 18px 10px;
+        border-radius: 999px;
+        font-size: 1.15rem;
+        color: var(--accent);
+        font-weight: 600;
+        background: var(--accent-soft);
+      }
+
+      .signature::before,
+      .signature::after {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.4;
+      }
+
+      section {
+        display: grid;
+        gap: 24px;
+        isolation: isolate;
+      }
+
+      section[aria-labelledby="notes-title"] {
+        padding-bottom: clamp(40px, 6vw, 60px);
+        margin-bottom: clamp(24px, 4vw, 40px);
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(1.8rem, 3.4vw, 2.2rem);
+        color: var(--text-primary);
+        text-align: center;
+      }
+
+      .section-intro {
+        margin: 0 auto;
+        max-width: 620px;
+        text-align: center;
+        font-size: clamp(1rem, 2.2vw, 1.1rem);
+        line-height: 1.6;
+        color: var(--text-subtle);
+      }
+
+      .nav-section {
+        display: grid;
+        gap: 20px;
+      }
+
+      .nav-grid {
+        display: grid;
+        gap: clamp(16px, 3vw, 24px);
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .nav-card {
+        display: grid;
+        gap: 8px;
+        padding: clamp(18px, 3vw, 24px);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 14px 30px var(--shadow);
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .nav-card:hover,
+      .nav-card:focus-visible {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px var(--shadow-strong);
+      }
+
+      .nav-card span {
+        font-size: 0.95rem;
+        color: var(--text-subtle);
+      }
+
+      .story-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .story-card {
+        position: relative;
+        padding: clamp(24px, 4vw, 32px);
+        border-radius: clamp(18px, 3vw, 24px);
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 16px 40px var(--shadow);
+        display: grid;
+        gap: 16px;
+      }
+
+      .story-card::before {
+        content: attr(data-icon);
+        position: absolute;
+        top: clamp(20px, 3vw, 26px);
+        left: clamp(20px, 3vw, 26px);
+        font-size: clamp(1.6rem, 3vw, 2rem);
+        opacity: 0.2;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .story-card h3 {
+        margin: 0;
+        padding-left: clamp(50px, 8vw, 60px);
+        padding-right: clamp(20px, 3vw, 26px);
+        font-size: clamp(1.4rem, 3vw, 1.65rem);
+        color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+      }
+
+      .story-card p {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.6;
+        color: var(--text-subtle);
+        position: relative;
+        z-index: 1;
+      }
+
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: clamp(28px, 4vw, 36px);
+        padding: clamp(20px, 3vw, 28px);
+        border-radius: clamp(20px, 3vw, 26px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
+        box-shadow: 0 20px 44px var(--shadow);
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: clamp(40px, 5vw, 52px);
+        bottom: clamp(40px, 5vw, 52px);
+        left: clamp(18px, 3vw, 32px);
+        width: 4px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-blue));
+        opacity: 0.55;
+      }
+
+      .milestone {
+        position: relative;
+        margin-left: clamp(46px, 7vw, 68px);
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 18px;
+        padding: clamp(18px, 3vw, 24px);
+        box-shadow: 0 14px 30px var(--shadow);
+      }
+
+      .milestone::before {
+        content: "";
+        position: absolute;
+        top: clamp(18px, 3vw, 24px);
+        left: calc(-1 * clamp(30px, 4vw, 36px));
+        width: clamp(18px, 3vw, 22px);
+        height: clamp(18px, 3vw, 22px);
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.95);
+        background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+        box-shadow: 0 10px 18px rgba(71, 166, 255, 0.3);
+      }
+
+      .milestone h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.1rem, 2.4vw, 1.25rem);
+        color: var(--text-primary);
+      }
+
+      .milestone time {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: rgba(58, 44, 81, 0.6);
+      }
+
+      .milestone p {
+        margin: 12px 0 0;
+        font-size: 1rem;
+        line-height: 1.55;
+        color: var(--text-subtle);
+      }
+
+      .notes-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 32px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        padding: clamp(20px, 4vw, 32px) 0;
+        margin-bottom: clamp(32px, 5vw, 48px);
+      }
+
+      .note-button {
+        padding: clamp(20px, 3vw, 28px) clamp(24px, 4vw, 32px);
+        border: none;
+        border-radius: clamp(20px, 3vw, 28px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+        box-shadow: 0 16px 32px var(--shadow);
+        cursor: pointer;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.3px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .note-button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--accent-soft), rgba(71, 166, 255, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .note-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px var(--shadow-strong);
+      }
+
+      .note-button:hover::before {
+        opacity: 1;
+      }
+
+      .note-button:focus-visible {
+        outline: 3px solid rgba(255, 111, 145, 0.6);
+        outline-offset: 4px;
+      }
+
+      .note-button > span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .note-button:nth-child(1) {
+        background: linear-gradient(135deg, var(--note-yellow), rgba(255, 246, 197, 0.95));
+      }
+
+      .note-button:nth-child(2) {
+        background: linear-gradient(135deg, var(--note-mint), rgba(220, 246, 243, 0.95));
+      }
+
+      .note-button:nth-child(3) {
+        background: linear-gradient(135deg, var(--note-rose), rgba(255, 225, 236, 0.95));
+      }
+
+      .note-button:nth-child(4) {
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 192, 203, 0.85));
+      }
+
+      .note-button:nth-child(5) {
+        background: linear-gradient(135deg, rgba(221, 160, 221, 0.9), rgba(238, 130, 238, 0.85));
+      }
+
+      .note-button:nth-child(6) {
+        background: linear-gradient(135deg, rgba(255, 160, 122, 0.9), rgba(255, 182, 193, 0.85));
+      }
+
+      .message-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(20px, 4vw, 40px);
+        background: rgba(58, 44, 81, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .message-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .message-content {
+        position: relative;
+        max-width: min(650px, 90vw);
+        max-height: 85vh;
+        padding: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 48px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 32px 64px rgba(58, 44, 81, 0.5);
+        transform: scale(0.9) translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        overflow-y: auto;
+        text-align: center;
+        border: 2px solid rgba(255, 111, 145, 0.2);
+        margin: auto;
+      }
+
+      /* Ensure modal content is always visible */
+      .message-content::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .message-content::-webkit-scrollbar-track {
+        background: rgba(58, 44, 81, 0.1);
+        border-radius: 4px;
+      }
+
+      .message-content::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 4px;
+      }
+
+      .message-content::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-blue);
+      }
+
+      .message-modal.active .message-content {
+        transform: scale(1) translateY(0);
+      }
+
+      .message-content p {
+        margin: 0;
+        font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+        line-height: 1.9;
+        color: #3a2c51;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      }
+
+      .message-close {
+        position: absolute;
+        top: clamp(16px, 3vw, 20px);
+        right: clamp(16px, 3vw, 20px);
+        width: clamp(36px, 5vw, 44px);
+        height: clamp(36px, 5vw, 44px);
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--text-primary);
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 4px 12px rgba(58, 44, 81, 0.2);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .message-close:hover {
+        transform: scale(1.1);
+        background: rgba(255, 111, 145, 0.15);
+      }
+
+      .message-close:focus-visible {
+        outline: 3px solid rgba(255, 111, 145, 0.6);
+        outline-offset: 2px;
+      }
+
+      .distance-band {
+        position: relative;
+        padding: clamp(32px, 5vw, 48px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
+        box-shadow: 0 26px 54px var(--shadow);
+        overflow: hidden;
+        margin-top: clamp(20px, 4vw, 32px);
+      }
+
+      .distance-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 10% 20%, rgba(255, 111, 145, 0.15), transparent 45%),
+          radial-gradient(circle at 80% 80%, rgba(71, 166, 255, 0.15), transparent 55%);
+        pointer-events: none;
+      }
+
+      .distance-grid {
+        position: relative;
+        display: grid;
+        gap: clamp(28px, 4vw, 40px);
+      }
+
+      .distance-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: clamp(16px, 3vw, 24px);
+        margin: clamp(24px, 4vw, 32px) 0;
+      }
+
+      .distance-stat {
+        text-align: center;
+        padding: clamp(16px, 3vw, 20px);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 8px 20px rgba(58, 44, 81, 0.1);
+      }
+
+      .distance-stat-value {
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        font-weight: 700;
+        color: var(--accent);
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .distance-stat-label {
+        font-size: 0.9rem;
+        color: var(--text-subtle);
+        margin-top: 6px;
+        letter-spacing: 0.3px;
+      }
+
+      .distance-route {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(20px, 4vw, 32px);
+        align-items: center;
+        margin-top: clamp(20px, 4vw, 32px);
+        min-height: 200px;
+      }
+
+      .distance-route::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+          rgba(255, 111, 145, 0.4) 0%, 
+          rgba(255, 111, 145, 0.3) 20%, 
+          rgba(71, 166, 255, 0.3) 80%, 
+          rgba(71, 166, 255, 0.4) 100%);
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .animated-plane {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--accent);
+        filter: drop-shadow(0 4px 8px rgba(58, 44, 81, 0.3));
+        transform: translate(-50%, -50%) rotate(0deg);
+        z-index: 2;
+        animation: fly-across 8s ease-in-out infinite;
+      }
+
+      @keyframes fly-across {
+        0% {
+          left: 0%;
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        50% {
+          left: 100%;
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        51% {
+          left: 100%;
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+        100% {
+          left: 0%;
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+      }
+
+      .city-card {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        padding: clamp(20px, 3vw, 28px);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 14px 30px var(--shadow);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .city-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .city-card h3 {
+        margin: 0;
+        font-size: clamp(1.3rem, 3vw, 1.6rem);
+        color: var(--text-primary);
+        font-weight: 700;
+      }
+
+      .distance-message {
+        text-align: center;
+        margin-top: clamp(24px, 4vw, 32px);
+        padding: clamp(20px, 3vw, 28px);
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(255, 111, 145, 0.1), rgba(71, 166, 255, 0.1));
+        font-size: clamp(1rem, 2.2vw, 1.15rem);
+        line-height: 1.7;
+        color: var(--text-subtle);
+        font-style: italic;
+      }
+
+      /* Secret Section */
+      .secret-trigger {
+        text-align: center;
+        margin: clamp(40px, 6vw, 60px) 0;
+        padding: clamp(16px, 3vw, 24px);
+      }
+
+      .secret-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        border: 2px dashed rgba(58, 44, 81, 0.3);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.5);
+        color: var(--text-subtle);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .secret-button:hover {
+        border-color: var(--accent);
+        background: rgba(255, 111, 145, 0.1);
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .secret-section {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
+        padding: 0 clamp(24px, 4vw, 36px);
+        margin: 0;
+      }
+
+      .secret-section.revealed {
+        max-height: 2000px;
+        opacity: 1;
+        padding: clamp(32px, 5vw, 48px) clamp(24px, 4vw, 36px);
+        margin: clamp(24px, 4vw, 32px) 0;
+      }
+
+      .secret-content {
+        background: linear-gradient(135deg, rgba(255, 111, 145, 0.08), rgba(71, 166, 255, 0.08));
+        border-radius: clamp(24px, 4vw, 32px);
+        padding: clamp(28px, 4vw, 40px);
+        box-shadow: 0 20px 40px rgba(58, 44, 81, 0.15);
+        border: 2px solid rgba(255, 111, 145, 0.2);
+      }
+
+      .secret-content h2 {
+        margin: 0 0 clamp(20px, 3vw, 28px);
+        font-size: clamp(1.6rem, 3vw, 2rem);
+        color: var(--text-primary);
+        text-align: center;
+      }
+
+      .secret-list {
+        display: grid;
+        gap: clamp(16px, 3vw, 24px);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .secret-item {
+        padding: clamp(16px, 3vw, 20px);
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        border-left: 4px solid var(--accent);
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        line-height: 1.6;
+        color: var(--text-subtle);
+        box-shadow: 0 4px 12px rgba(58, 44, 81, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .secret-item:hover {
+        transform: translateX(8px);
+        box-shadow: 0 8px 20px rgba(58, 44, 81, 0.12);
+      }
+
+      .secret-item::before {
+        content: "•";
+        margin-right: 12px;
+        font-size: 1.2rem;
+        color: var(--accent);
+        font-weight: bold;
+      }
+
+      .playlist {
+        display: grid;
+        gap: clamp(24px, 4vw, 32px);
+        padding: clamp(24px, 4vw, 36px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+        box-shadow: 0 24px 52px var(--shadow);
+      }
+
+      .playlist-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+      }
+
+      .playlist-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 32px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #1db954, #1ed760);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        box-shadow: 0 8px 24px rgba(29, 185, 84, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .playlist-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(29, 185, 84, 0.4);
+      }
+
+      .playlist-button:focus-visible {
+        outline: 3px solid rgba(29, 185, 84, 0.6);
+        outline-offset: 4px;
+      }
+
+      .playlist-button-icon {
+        font-size: 1.4rem;
+      }
+
+      .page-link-section {
+        display: grid;
+        gap: 16px;
+        padding: clamp(20px, 4vw, 28px);
+        border-radius: clamp(20px, 4vw, 28px);
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+        box-shadow: 0 20px 44px var(--shadow);
+        text-align: center;
+      }
+
+      .page-link-section p {
+        margin: 0 auto;
+        max-width: 520px;
+        font-size: clamp(1rem, 2.2vw, 1.1rem);
+        color: var(--text-subtle);
+      }
+
+      .page-link-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        box-shadow: 0 10px 24px rgba(58, 44, 81, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .page-link-button:hover,
+      .page-link-button:focus-visible {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(58, 44, 81, 0.3);
+      }
+
+      .playlist-header {
+        text-align: center;
+        display: grid;
+        gap: 12px;
+      }
+
+      .playlist-header p {
+        margin: 0 auto;
+        max-width: 520px;
+        font-size: clamp(1rem, 2.2vw, 1.1rem);
+        color: var(--text-subtle);
+      }
+
+      .track-list {
+        display: grid;
+        gap: clamp(16px, 2.4vw, 22px);
+      }
+
+      .track {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: clamp(14px, 3vw, 20px);
+        padding: clamp(14px, 3vw, 20px);
+        border-radius: clamp(16px, 3vw, 20px);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 12px 24px var(--shadow);
+      }
+
+      .track .artwork {
+        width: clamp(48px, 10vw, 60px);
+        aspect-ratio: 1;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(255, 111, 145, 0.25), rgba(71, 166, 255, 0.3));
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+        color: rgba(58, 44, 81, 0.8);
+      }
+
+      .track-info {
+        display: grid;
+        gap: 4px;
+      }
+
+      .track-info strong {
+        font-size: 1rem;
+        color: var(--text-primary);
+      }
+
+      .track-info span {
+        font-size: 0.9rem;
+        color: rgba(58, 44, 81, 0.62);
+      }
+
+      .track a {
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .track a:hover,
+      .track a:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 18px rgba(255, 111, 145, 0.32);
+      }
+
+      .gallery-frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.92);
+        padding: clamp(18px, 3vw, 26px);
+        border-radius: clamp(24px, 4vw, 30px);
+        box-shadow: 0 24px 50px var(--shadow);
+      }
+
+      .gallery-photo {
+        width: clamp(260px, 70vw, 560px);
+        aspect-ratio: 4 / 3;
+        border-radius: clamp(16px, 3vw, 24px);
+        overflow: hidden;
+        box-shadow: 0 18px 38px rgba(58, 44, 81, 0.24);
+        background: linear-gradient(135deg, rgba(255, 220, 226, 0.42), rgba(218, 255, 250, 0.42));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease, opacity 0.5s ease;
+        opacity: 0;
+      }
+
+      .gallery-photo img.loaded {
+        opacity: 1;
+      }
+
+      .gallery-caption {
+        margin: 18px auto 0;
+        max-width: 520px;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--text-subtle);
+      }
+
+      .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1.6rem;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 10px 20px rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .gallery-nav:hover {
+        transform: translateY(-50%) scale(1.04);
+        box-shadow: 0 14px 24px rgba(58, 44, 81, 0.24);
+      }
+
+      .gallery-nav:focus-visible {
+        outline: 3px solid rgba(255, 111, 145, 0.6);
+      }
+
+      .gallery-nav.prev {
+        left: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-nav.next {
+        right: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-dots {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .gallery-dots button {
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        background: rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .gallery-dots button.is-active {
+        background: var(--accent);
+        transform: scale(1.2);
+      }
+
+      .promise {
+        text-align: center;
+        display: grid;
+        gap: 18px;
+        padding: clamp(28px, 4vw, 36px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+        box-shadow: 0 24px 52px var(--shadow);
+      }
+
+      .promise h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3.4vw, 2.2rem);
+        color: var(--text-primary);
+      }
+
+      .promise p {
+        margin: 0 auto;
+        max-width: 640px;
+        font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+        line-height: 1.7;
+        color: var(--text-subtle);
+      }
+
+      .promise .count-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(71, 166, 255, 0.18);
+        color: rgba(58, 44, 81, 0.7);
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.92rem;
+        color: rgba(58, 44, 81, 0.64);
+      }
+
+      @media (max-width: 700px) {
+        body {
+          padding: 36px 12px 56px;
+        }
+
+        .story-card,
+        .milestone,
+        .distance-band,
+        .playlist,
+        .promise {
+          text-align: left;
+        }
+
+        .gallery-nav {
+          display: none;
+        }
+
+        .note-card {
+          width: clamp(190px, 80vw, 240px);
+          height: clamp(160px, 60vw, 210px);
+        }
+
+        .back-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 44px;
+          height: 44px;
+          font-size: 1.2rem;
+        }
+
+        .distance-route {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          min-height: 300px;
+        }
+
+        .distance-route::before {
+          display: none;
+        }
+
+        .animated-plane {
+          top: auto;
+          left: 50%;
+          bottom: 0;
+          transform: translate(-50%, 0) rotate(90deg);
+          animation: fly-vertical 8s ease-in-out infinite;
+        }
+
+        @keyframes fly-vertical {
+          0% {
+            bottom: 0%;
+            transform: translate(-50%, 0) rotate(90deg);
+          }
+          50% {
+            bottom: 100%;
+            transform: translate(-50%, 0) rotate(90deg);
+          }
+          51% {
+            bottom: 100%;
+            transform: translate(-50%, 0) rotate(270deg);
+          }
+          100% {
+            bottom: 0%;
+            transform: translate(-50%, 0) rotate(270deg);
+          }
+        }
+
+        .distance-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Scroll animations */
+      section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Header should be visible immediately */
+      header {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Floating hearts animation */
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+          opacity: 1;
+        }
+      }
+
+      .floating-heart {
+        position: fixed;
+        font-size: 1.5rem;
+        pointer-events: none;
+        z-index: 9999;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Confetti animation */
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        pointer-events: none;
+        z-index: 10000;
+        animation: confetti-fall 3s linear forwards;
+      }
+
+      /* Back to top button */
+      .back-to-top {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 52px;
+        height: 52px;
+        border: none;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+        color: white;
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 8px 24px rgba(58, 44, 81, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        z-index: 100;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(58, 44, 81, 0.4);
+      }
+
+      /* Decorative hearts and flowers */
+      .decorative-heart,
+      .decorative-flower {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.15;
+        z-index: 0;
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+        animation: float-gentle 6s ease-in-out infinite;
+      }
+
+      .decorative-heart {
+        color: var(--accent);
+      }
+
+      .decorative-flower {
+        color: var(--accent-blue);
+        font-size: clamp(1rem, 1.8vw, 1.5rem);
+      }
+
+      @keyframes float-gentle {
+        0%, 100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(5deg);
+        }
+      }
+
+      /* Add decorative elements to main sections */
+      main {
+        position: relative;
+        overflow: hidden;
+      }
+
+      main::before,
+      main::after {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      main::before {
+        top: 5%;
+        left: 3%;
+        animation: float-gentle 8s ease-in-out infinite;
+      }
+
+      main::after {
+        bottom: 10%;
+        right: 5%;
+        animation: float-gentle 10s ease-in-out infinite reverse;
+      }
+
+      section {
+        position: relative;
+      }
+
+      /* Decorative elements for header */
+      header::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        right: 5%;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.2;
+        animation: float-gentle 7s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 8%;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-blue-soft), transparent);
+        opacity: 0.2;
+        animation: float-gentle 9s ease-in-out infinite reverse;
+        pointer-events: none;
+      }
+
+      /* Add decorative element to story cards */
+      .story-card::after {
+        content: "";
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 6s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Decorative element in timeline */
+      .timeline::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Decorative element in distance section */
+      .distance-band::after {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-blue-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 7s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      /* Decorative element in playlist */
+      .playlist::before {
+        content: "";
+        position: absolute;
+        top: 15px;
+        right: 30px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 9s ease-in-out infinite reverse;
+        pointer-events: none;
+      }
+
+      /* Decorative elements in promise section */
+      .promise::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      .promise::after {
+        content: "";
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-blue-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 10s ease-in-out infinite reverse;
+        pointer-events: none;
+      }
+
+      /* Decorative element in notes section */
+      section[aria-labelledby="notes-title"]::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 7s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      /* Decorative element in gallery section */
+      section[aria-labelledby="gallery-title"]::before {
+        content: "";
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-blue-soft), transparent);
+        opacity: 0.15;
+        animation: float-gentle 8s ease-in-out infinite reverse;
+        pointer-events: none;
+      }
+
+      /* Ensure content stays above decorative elements */
+      header > *,
+      section > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Smooth scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        section {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>My Love</h1>
+        <span class="tagline">London ↔ Sydney | 10,553 miles of us</span>
+        <p>
+          I made this little space for you.
+        </p>
+        <p style="margin-top: 20px;">
+          Because I miss you.<br>
+          More than I know how to explain.<br>
+          Some days it feels like the distance is louder than everything else.<br>
+          But even when you're so far away, you're still the closest thing to me.
+        </p>
+        <p style="margin-top: 24px; font-style: italic; color: var(--text-subtle);">
+          I just wanted you to have something from me, something that says:<br>
+          I love you.<br>
+          I'm thinking of you.<br>
+          And I'm counting down the seconds until I can be next to you again.
+        </p>
+        <div class="signature">I love you</div>
+      </header>
+
+      <section class="nav-section" aria-labelledby="nav-title">
+        <h2 id="nav-title" class="section-title">Choose a chapter</h2>
+        <p class="section-intro">
+          Each section now has its own page. Pick where you want to go next.
+        </p>
+        <div class="nav-grid">
+          <a class="nav-card" href="valentine.html">
+            <strong>Valentine</strong>
+            <span>A question just for you.</span>
+          </a>
+          <a class="nav-card" href="story.html">
+            <strong>Our Story</strong>
+            <span>How it started, time zones, dreaming forward.</span>
+          </a>
+          <a class="nav-card" href="milestones.html">
+            <strong>Milestones</strong>
+            <span>The dates and moments that made us.</span>
+          </a>
+          <a class="nav-card" href="notes.html">
+            <strong>Little Notes</strong>
+            <span>Tap to open heartfelt notes.</span>
+          </a>
+          <a class="nav-card" href="distance.html">
+            <strong>Distance</strong>
+            <span>Our miles, the flight, the message.</span>
+          </a>
+          <a class="nav-card" href="playlist.html">
+            <strong>Playlist</strong>
+            <span>One button to our Spotify list.</span>
+          </a>
+          <a class="nav-card" href="gallery.html">
+            <strong>Gallery</strong>
+            <span>Swipe through our Chennai days.</span>
+          </a>
+          <a class="nav-card" href="promise.html">
+            <strong>Promise</strong>
+            <span>Time together and the next hug.</span>
+          </a>
+          <a class="nav-card" href="memories.html">
+            <strong>More Memories</strong>
+            <span>Extra moments and future notes.</span>
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="story-title">
+        <h2 id="story-title" class="section-title">Our Long-Distance Story</h2>
+        <div class="story-grid">
+          <article class="story-card" data-icon="•">
+            <h3>How It Started</h3>
+            <p>
+              A birthday message I was too nervous to send, yet I did. A quiet confession that I had a crush on you.
+              You smiled. You stayed. And over time, something changed.
+              I started growing closer to the girl I once admired from a distance.
+              And when you finally told me you felt it too, that you liked me back ,it was the sweetest moment.
+            </p>
+          </article>
+          <article class="story-card" data-icon="•">
+            <h3>Held By Time Zones</h3>
+            <p>
+              You say good morning while I whisper goodnight.
+              And yet our hearts meet in the middle.
+              With sleepy smiles, with surprise calls,In the way your voice can calm storms in me you don't even know are there.
+            </p>
+          </article>
+          <article class="story-card" data-icon="•">
+            <h3>Dreaming Forward</h3>
+            <p>
+              I imagine us in the same room.
+              Your legs tucked under mine. My head resting on your chest.
+              Feeling your smile on my skin, hearing your voice fill the space we finally share.
+              Until that day comes, I’ll hold on to the wait.
+              And when I finally wake up to you. not my phone, not a message, just you.
+              It’ll feel like I’ve found my way home
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="milestone-title">
+        <h2 id="milestone-title" class="section-title">Milestones That Made Us</h2>
+        <div class="timeline">
+          <article class="milestone">
+            <time datetime="2025-01-20">20 Jan 2025</time>
+            <h3>We Decided To Give Us A Shot</h3>
+            <p>
+              On a call where you unexpectedly confessed. The moment that changed everything.
+              A decision to try, to see where this could go. The beginning of us.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-02-17">17 Feb 2025</time>
+            <h3>We Made It Official</h3>
+            <p>
+              Our first "I love you." which was bubbling in us and finally came out.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-04">April 2025</time>
+            <h3>Planning To Meet</h3>
+            <p>
+              We tried to come to each other. Tickets considered, plans made.
+              The anticipation building, hearts racing at the thought of finally being together.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-06">June 2025</time>
+            <h3>Our First Meeting</h3>
+            <p>
+              Ten days together, making memories to hold on to for a long time.
+              filling my senses and making me fall in love with you more and more.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-08">August 2025</time>
+            <h3>Six Months Together</h3>
+            <p>
+              Half a year of choosing each other, every single day.
+              Six months of growing closer despite the distance.
+              Six months of proving that love knows no boundaries.
+            </p>
+          </article>
+        </div>
+        <p class="section-intro" style="margin-top: clamp(32px, 5vw, 48px); text-align: center; font-style: italic; color: var(--text-subtle);">
+          And this is just the beginning. I can't wait to add more milestones to our story. 
+        </p>
+      </section>
+
+      <section aria-labelledby="notes-title">
+        <h2 id="notes-title" class="section-title">Little Notes For You</h2>
+        <p class="section-intro" style="margin-bottom: 24px;">
+          Tap. Open. Feel.
+          Each one is a quiet love letter. For the days when you miss me. For the moments when you don't know how deeply you're loved.
+        </p>
+        <div class="notes-grid">
+          <button class="note-button" type="button" data-message="Sometimes I close my eyes and pretend you're right here. I can almost feel your hand in mine, your laugh in my ear, your heartbeat against my chest, your warmth on my skin, the comfort of your presence. My home">
+            <span>Open me</span>
+          </button>
+          <button class="note-button" type="button" data-message="I keep every 'good morning' text. Every 'I miss you.' Every sleepy voice note. They're proof that even 10,553 miles apart, we're building something real. Something that distance can't break, only make it all the more valuable.">
+            <span>Peek inside</span>
+          </button>
+          <button class="note-button" type="button" data-message="One day, I'll wake up next to you. No alarms. No goodbyes. Just your face, your warmth, your everything. Until then, I'll keep choosing you every single day, across every single mile. Because you're worth every second of the wait.">
+            <span>Read me</span>
+          </button>
+          <button class="note-button" type="button" data-message="I love you. Three words that don't feel big enough for what I feel. I love the way you laugh. I love how you make me feel seen. I love that even oceans apart, you're still the first thing I think about when I wake up and the last before I sleep. I love you, simply and completely.">
+            <span>I love you</span>
+          </button>
+          <button class="note-button" type="button" data-message="I miss you. Not just when we hang up the call or when I see something that reminds me of you. I miss you in the quiet moments, in the loud ones, in every space between heartbeats. I miss your presence, your energy, the way the world feels different when i'm in your arms. And I'll keep missing you until I don't have to anymore.">
+            <span>I miss you</span>
+          </button>
+          <button class="note-button" type="button" data-message="I adore you. Every little thing about you. The way you smile, the way you think, the way you pop your hips for a mirror selfie. I adore how you see the world, how you see me. I adore the person you are and the person you're becoming. I adore you, now and always.">
+            <span>I adore you</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="message-modal" id="messageModal" role="dialog" aria-labelledby="messageTitle" aria-modal="true">
+        <div class="message-content">
+          <button class="message-close" type="button" aria-label="Close message">×</button>
+          <p id="messageText"></p>
+        </div>
+      </div>
+
+      <section class="distance-band" aria-labelledby="distance-title">
+        <div class="distance-grid">
+          <h2 id="distance-title" class="section-title">Two Cities, One Journey</h2>
+          
+          <div class="distance-stats">
+            <div class="distance-stat">
+              <div class="distance-stat-value">10,553</div>
+              <div class="distance-stat-label">Miles Apart</div>
+            </div>
+            <div class="distance-stat">
+              <div class="distance-stat-value">11</div>
+              <div class="distance-stat-label">Hours Time Difference</div>
+            </div>
+            <div class="distance-stat">
+              <div class="distance-stat-value">22</div>
+              <div class="distance-stat-label">Hours Flight Time</div>
+            </div>
+            <div class="distance-stat">
+              <div class="distance-stat-value">∞</div>
+              <div class="distance-stat-label">Love Between Us</div>
+            </div>
+          </div>
+
+          <div class="distance-route">
+            <div class="city-card">
+              <h3>London, UK</h3>
+            </div>
+            <div class="animated-plane">→</div>
+            <div class="city-card">
+              <h3>Sydney, AU</h3>
+            </div>
+          </div>
+
+          <p class="distance-message">
+            The miles don’t scare me.
+            The time zones don’t either.
+            What gets me is waking up without you next to me.
+            But even from oceans apart, you still feel close.
+            Because every single day, I choose you.
+            And every single day, you choose me.
+          </p>
+        </div>
+      </section>
+
+      <section class="playlist" aria-labelledby="playlist-title">
+        <div class="playlist-header">
+          <h2 id="playlist-title" class="section-title">Our Shared Playlist</h2>
+          <p>
+            A soundtrack for us.
+            For long calls, short naps, soft mornings, and heavy goodbyes.
+            For "I miss you" without saying it.
+            For "I'm right here" when we feel far.
+          </p>
+        </div>
+        <div class="playlist-button-container">
+          <a 
+            href="https://open.spotify.com/playlist/439v8xzaPjXqeZ3SDWEBka?si=2ddcc706f9b44381" 
+            target="_blank" 
+            rel="noopener"
+            class="playlist-button"
+          >
+            <span class="playlist-button-icon">♪</span>
+            <span>Open on Spotify</span>
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="gallery-title">
+        <h2 id="gallery-title" class="section-title">Carousel of Memories</h2>
+        <div class="gallery-frame">
+          <button
+            class="gallery-nav prev"
+            type="button"
+            aria-label="Previous photo"
+          >
+            ‹
+          </button>
+          <div class="gallery-photo">
+            <img
+              src=""
+              alt="Placeholder memory"
+              width="560"
+              height="420"
+              loading="lazy"
+            />
+          </div>
+          <button class="gallery-nav next" type="button" aria-label="Next photo">
+            ›
+          </button>
+        </div>
+        <p class="gallery-caption"></p>
+        <div class="gallery-dots" role="tablist" aria-label="Select a memory"></div>
+      </section>
+
+      <section class="page-link-section" aria-labelledby="more-title">
+        <h2 id="more-title" class="section-title">More Memories</h2>
+        <p>
+          A small corner with a few extra moments, just for us.
+        </p>
+        <div>
+          <a class="page-link-button" href="memories.html">
+            Open the next page
+          </a>
+        </div>
+      </section>
+
+      <section class="promise" aria-labelledby="promise-title">
+        <h2 id="promise-title">A Promise from far beyond</h2>
+        <p>
+          This isn't just a webpage.
+          It's a love letter I'll keep writing until distance is no longer something we measure.
+        </p>
+        <p style="margin-top: 20px;">
+          Until I can kiss you good morning instead of texting it.
+          Until I can hold your hand through traffic, through storms and through every ordinary day.
+        </p>
+        <p style="margin-top: 20px;">
+          Thank you for loving me from across the world.
+          Thank you for choosing me when it would've been easier not to.
+          I promise to hold you in my heart until "soon" becomes "always" and i can hold you in my arms.
+        </p>
+        <div class="count-chip" id="time-together" aria-live="polite">
+          Together since 17 Feb 2025 (calculating…)
+        </div>
+        <div class="count-chip" id="next-hug" aria-live="polite">
+          Countdown to our next hug: set your date here
+        </div>
+      </section>
+
+      <!--
+      <div class="secret-trigger">
+        <button class="secret-button" type="button" id="secretTrigger">
+          <span>Click for our secrets</span>
+        </button>
+      </div>
+
+      <section class="secret-section" id="secretSection" aria-hidden="true">
+        <div class="secret-content">
+          <h2>Our Little Secrets</h2>
+          <ul class="secret-list">
+            <li class="secret-item">I save screenshots of your sleepy voice messages and listen to them when I miss you most.</li>
+            <li class="secret-item">I count down the hours until our next call like it's the most important appointment of my day.</li>
+            <li class="secret-item">Sometimes I re-read our old messages just to remember how we started.</li>
+            <li class="secret-item">I've memorized your timezone better than my own, just so I know when you're waking up or going to sleep.</li>
+            <li class="secret-item">I get butterflies every single time I see your name pop up on my phone.</li>
+            <li class="secret-item">I imagine what it'll be like to wake up next to you, and that thought gets me through the hardest days.</li>
+            <li class="secret-item">I love how you make me feel: seen, understood, and completely myself.</li>
+            <li class="secret-item">Even when we're apart, you're the first thing I think about in the morning and the last before I sleep.</li>
+          </ul>
+        </div>
+      </section>
+      -->
+
+      <footer>More memories loading... and one day, this will just be our history. No more waiting.</footer>
+    </main>
+
+    <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+    <script>
+      const noteButtons = document.querySelectorAll(".note-button");
+      const messageModal = document.getElementById("messageModal");
+      const messageText = document.getElementById("messageText");
+      const closeButton = document.querySelector(".message-close");
+
+      function createConfetti() {
+        const colors = ["#ff6f91", "#47a6ff", "#ffdee9", "#b5fffc"];
+        for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "%";
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 0.5 + "s";
+          confetti.style.width = Math.random() * 8 + 6 + "px";
+          confetti.style.height = confetti.style.width;
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 3000);
+        }
+      }
+
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.textContent = "♥";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+
+      function openModal(message, buttonElement = null) {
+        messageText.textContent = message;
+        messageModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+        
+        // Scroll modal into view if needed
+        setTimeout(() => {
+          const content = document.querySelector(".message-content");
+          if (content) {
+            content.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 100);
+        
+        createConfetti();
+        createFloatingHeart();
+      }
+
+      function closeModal() {
+        messageModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      noteButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const message = button.getAttribute("data-message");
+          openModal(message, button);
+        });
+      });
+
+      closeButton.addEventListener("click", closeModal);
+
+      messageModal.addEventListener("click", (e) => {
+        if (e.target === messageModal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && messageModal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+
+      const slides = [
+        {
+          src: "memories-diaries/day-01.jpg",
+          alt: "Day 1 of our ten-day diary together",
+          caption:
+            "Day 1 · our first hug, first date, first kiss. the day i struggled to look at you and then could never take my eyes and hands off you.",
+        },
+        {
+          src: "memories-diaries/day-02.jpg",
+          alt: "Day 2 of our ten-day diary together",
+          caption:
+            "Day 2 · lovey dovey in a cafe and not wanting to let you go.",
+        },
+        {
+          src: "memories-diaries/day-03.jpg",
+          alt: "Day 3 of our ten-day diary together",
+          caption:
+            "Day 3 · my first flowers and riding in the rain to have shawarma with you.",
+        },
+        {
+          src: "memories-diaries/day-04.jpg",
+          alt: "Day 4 of our ten-day diary together",
+          caption: "Day 4 · matcha, silver ring and walking the mall with mommy.",
+        },
+        {
+          src: "memories-diaries/day-05.jpg",
+          alt: "Day 5 of our ten-day diary together",
+          caption: "Day 5 · the day i got to hold you in perfect comfort. having our own little space. long drive, beach, impromptu snack runs",
+        },
+        {
+          src: "memories-diaries/day-06.jpg",
+          alt: "Day 6 of our ten-day diary together",
+          caption: "Day 6 · the day i got to wake up to you and content having you to myself for a day.",
+        },
+        {
+          src: "memories-diaries/day-07.jpg",
+          alt: "Day 7 of our ten-day diary together",
+          caption: "Day 7 · church with you, had you so close to me but unable to touch you, i felt truly clingy that day.",
+        },
+        {
+          src: "memories-diaries/day-08.jpg",
+          alt: "Day 8 of our ten-day diary together",
+          caption: "Day 8 · held your hand through pain, brought you home.",
+        },
+        {
+          src: "memories-diaries/day-09.jpg",
+          alt: "Day 9 of our ten-day diary together",
+          caption: "Day 9 · bike ride with my favourite passenger, morning run, ice-cream with you.",
+        },
+        {
+          src: "memories-diaries/day-10.jpg",
+          alt: "Day 10 of our ten-day diary together",
+          caption:
+            "Day 10 · The last day. gym with you, pep talk in the park, one last meal together, the clock ticking in my head on our time together.",
+        },
+      ];
+
+      const galleryImage = document.querySelector(".gallery-photo img");
+      const galleryCaption = document.querySelector(".gallery-caption");
+      const prevButton = document.querySelector(".gallery-nav.prev");
+      const nextButton = document.querySelector(".gallery-nav.next");
+      const dotsContainer = document.querySelector(".gallery-dots");
+
+      let currentSlide = 0;
+
+      // Dynamically create dots based on slides array
+      slides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.role = "tab";
+        dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        dot.setAttribute("aria-label", `Go to memory ${index + 1}`);
+        dot.dataset.index = index;
+        if (index === 0) dot.classList.add("is-active");
+        dot.addEventListener("click", () => setSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll(".gallery-dots button");
+
+      function setSlide(index) {
+        currentSlide = (index + slides.length) % slides.length;
+        const { src, alt, caption } = slides[currentSlide];
+        
+        // Remove loaded class for fade effect
+        galleryImage.classList.remove("loaded");
+        
+        // Preload image
+        const img = new Image();
+        img.onload = () => {
+          galleryImage.src = src;
+          galleryImage.alt = alt;
+          galleryImage.classList.add("loaded");
+        };
+        img.onerror = () => {
+          galleryImage.src = "";
+          galleryImage.alt = "Image not available";
+          galleryImage.classList.add("loaded");
+        };
+        img.src = src;
+        
+        galleryCaption.textContent = caption;
+        dots.forEach((dot, idx) => {
+          const isActive = idx === currentSlide;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-selected", String(isActive));
+        });
+        galleryImage.animate?.(
+          [{ transform: "scale(0.98)", opacity: 0.85 }, { transform: "scale(1)", opacity: 1 }],
+          { duration: 500, easing: "ease-out" }
+        );
+      }
+
+      prevButton.addEventListener("click", () => setSlide(currentSlide - 1));
+      nextButton.addEventListener("click", () => setSlide(currentSlide + 1));
+
+      // Keyboard navigation for gallery
+      document.addEventListener("keydown", (e) => {
+        const gallerySection = document.querySelector('[aria-labelledby="gallery-title"]');
+        if (!gallerySection) return;
+        
+        const rect = gallerySection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible && !messageModal.classList.contains("active")) {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            setSlide(currentSlide - 1);
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            setSlide(currentSlide + 1);
+          }
+        }
+      });
+
+      setSlide(0);
+
+      const timeTogetherElement = document.getElementById("time-together");
+      const nextHugElement = document.getElementById("next-hug");
+      const relationshipStart = new Date(Date.UTC(2025, 1, 17, 0, 0, 0));
+      // Set this to the date/time of your next reunion (UTC) or leave as null for placeholder.
+      const nextHugDate = new Date(Date.UTC(2026, 0, 22, 0, 0, 0));
+
+      function formatDuration(ms) {
+        const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+        const seconds = totalSeconds % 60;
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const minutes = totalMinutes % 60;
+        const totalHours = Math.floor(totalMinutes / 60);
+        const hours = totalHours % 24;
+        const days = Math.floor(totalHours / 24);
+
+        const parts = [];
+        if (days > 0) parts.push(`${days} day${days === 1 ? "" : "s"}`);
+        if (hours > 0 || days > 0) parts.push(`${hours} hour${hours === 1 ? "" : "s"}`);
+        if (minutes > 0 || hours > 0 || days > 0)
+          parts.push(`${minutes} minute${minutes === 1 ? "" : "s"}`);
+        parts.push(`${seconds} second${seconds === 1 ? "" : "s"}`);
+
+        return parts.join(" · ");
+      }
+
+      function updateTimeTogether() {
+        if (!timeTogetherElement) return;
+        const now = new Date();
+        const diff = now.getTime() - relationshipStart.getTime();
+
+        if (diff < 0) {
+          timeTogetherElement.textContent = "Counting down to 17 Feb 2025…";
+          return;
+        }
+
+        timeTogetherElement.textContent = `Together since 17 Feb 2025 · ${formatDuration(diff)}`;
+      }
+
+      function updateNextHugCountdown() {
+        if (!nextHugElement) return;
+        if (!nextHugDate || Number.isNaN(new Date(nextHugDate).getTime())) {
+          nextHugElement.textContent =
+            "Countdown to next hug: i will put a date here soon";
+          return;
+        }
+
+        const now = new Date();
+        const diff = new Date(nextHugDate).getTime() - now.getTime();
+        if (diff <= 0) {
+          nextHugElement.textContent = "It's hug time! 💞";
+          return;
+        }
+
+        nextHugElement.textContent = `Countdown to next hug · ${formatDuration(diff)}`;
+      }
+
+      updateTimeTogether();
+      updateNextHugCountdown();
+      setInterval(updateTimeTogether, 1000);
+      setInterval(updateNextHugCountdown, 1000);
+
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("section").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Back to top button
+      const backToTopButton = document.querySelector(".back-to-top");
+      
+      function toggleBackToTop() {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add("visible");
+        } else {
+          backToTopButton.classList.remove("visible");
+        }
+      }
+
+      window.addEventListener("scroll", toggleBackToTop);
+      
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Initial check for sections in viewport
+      document.querySelectorAll("section").forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          section.classList.add("visible");
+        }
+      });
+
+      // Secret section reveal
+      /*
+      const secretTrigger = document.getElementById("secretTrigger");
+      const secretSection = document.getElementById("secretSection");
+      let secretsRevealed = false;
+
+      secretTrigger.addEventListener("click", () => {
+        if (!secretsRevealed) {
+          secretSection.classList.add("revealed");
+          secretSection.setAttribute("aria-hidden", "false");
+          secretTrigger.innerHTML = '<span>Our secrets are out</span>';
+          secretTrigger.style.pointerEvents = "none";
+          secretTrigger.style.opacity = "0.6";
+          secretsRevealed = true;
+          createConfetti();
+        }
+      });
+      */
+
+    </script>
+  </body>
+</html>
+

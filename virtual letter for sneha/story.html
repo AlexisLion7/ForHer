@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Story</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        --bg: linear-gradient(160deg, #ffdee9 0%, #b5fffc 100%);
+        --panel-bg: rgba(255, 255, 255, 0.82);
+        --text-primary: #3a2c51;
+        --text-subtle: rgba(58, 44, 81, 0.78);
+        --accent: #ff6f91;
+        --shadow: rgba(58, 44, 81, 0.16);
+        --shadow-strong: rgba(58, 44, 81, 0.26);
+        --max-width: min(960px, 92vw);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 56px 16px 72px;
+        display: flex;
+        justify-content: center;
+        background: var(--bg);
+      }
+
+      main {
+        width: var(--max-width);
+        display: grid;
+        gap: clamp(24px, 4vw, 36px);
+        padding: clamp(32px, 5vw, 56px);
+        border-radius: clamp(24px, 4vw, 36px);
+        background: var(--panel-bg);
+        box-shadow: 0 28px 70px var(--shadow);
+      }
+
+      header {
+        display: grid;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .back-link {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(255, 111, 145, 0.16);
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.6rem);
+        color: var(--text-primary);
+      }
+
+      .story-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .story-card {
+        position: relative;
+        padding: clamp(24px, 4vw, 32px);
+        border-radius: clamp(18px, 3vw, 24px);
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 16px 40px var(--shadow);
+        display: grid;
+        gap: 16px;
+      }
+
+      .story-card h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 1.65rem);
+        color: var(--text-primary);
+      }
+
+      .story-card p {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.6;
+        color: var(--text-subtle);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="back-link" href="index.html">Back to home</a>
+        <h1 class="section-title">Our Long-Distance Story</h1>
+      </header>
+
+      <div class="story-grid">
+        <article class="story-card">
+          <h3>How It Started</h3>
+          <p>
+            A birthday message I was too nervous to send, yet I did. A quiet confession that I had a crush on you.
+            You smiled. You stayed. And over time, something changed.
+            I started growing closer to the girl I once admired from a distance.
+            And when you finally told me you felt it too, that you liked me back, it was the sweetest moment.
+          </p>
+        </article>
+        <article class="story-card">
+          <h3>Held By Time Zones</h3>
+          <p>
+            You say good morning while I whisper goodnight.
+            And yet our hearts meet in the middle.
+            With sleepy smiles, with surprise calls, in the way your voice can calm storms in me you do not even know are there.
+          </p>
+        </article>
+        <article class="story-card">
+          <h3>Dreaming Forward</h3>
+          <p>
+            I imagine us in the same room.
+            Your legs tucked under mine. My head resting on your chest.
+            Feeling your smile on my skin, hearing your voice fill the space we finally share.
+            Until that day comes, I will hold on to the wait.
+            And when I finally wake up to you, not my phone, not a message, just you.
+            It will feel like I have found my way home.
+          </p>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

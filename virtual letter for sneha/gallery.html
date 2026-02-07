@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        --bg: linear-gradient(160deg, #ffdee9 0%, #b5fffc 100%);
+        --panel-bg: rgba(255, 255, 255, 0.82);
+        --text-primary: #3a2c51;
+        --text-subtle: rgba(58, 44, 81, 0.78);
+        --accent: #ff6f91;
+        --shadow: rgba(58, 44, 81, 0.16);
+        --max-width: min(960px, 92vw);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 56px 16px 72px;
+        display: flex;
+        justify-content: center;
+        background: var(--bg);
+      }
+
+      main {
+        width: var(--max-width);
+        display: grid;
+        gap: clamp(24px, 4vw, 36px);
+        padding: clamp(32px, 5vw, 56px);
+        border-radius: clamp(24px, 4vw, 36px);
+        background: var(--panel-bg);
+        box-shadow: 0 28px 70px var(--shadow);
+      }
+
+      header {
+        display: grid;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .back-link {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(255, 111, 145, 0.16);
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.6rem);
+        color: var(--text-primary);
+      }
+
+      .gallery-frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.92);
+        padding: clamp(18px, 3vw, 26px);
+        border-radius: clamp(24px, 4vw, 30px);
+        box-shadow: 0 24px 50px var(--shadow);
+      }
+
+      .gallery-photo {
+        width: clamp(260px, 70vw, 560px);
+        aspect-ratio: 4 / 3;
+        border-radius: clamp(16px, 3vw, 24px);
+        overflow: hidden;
+        box-shadow: 0 18px 38px rgba(58, 44, 81, 0.24);
+        background: linear-gradient(135deg, rgba(255, 220, 226, 0.42), rgba(218, 255, 250, 0.42));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease, opacity 0.5s ease;
+        opacity: 0;
+      }
+
+      .gallery-photo img.loaded {
+        opacity: 1;
+      }
+
+      .gallery-caption {
+        margin: 18px auto 0;
+        max-width: 520px;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--text-subtle);
+      }
+
+      .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1.6rem;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 10px 20px rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .gallery-nav:hover {
+        transform: translateY(-50%) scale(1.04);
+        box-shadow: 0 14px 24px rgba(58, 44, 81, 0.24);
+      }
+
+      .gallery-nav.prev {
+        left: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-nav.next {
+        right: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-dots {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .gallery-dots button {
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        background: rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .gallery-dots button.is-active {
+        background: var(--accent);
+        transform: scale(1.2);
+      }
+
+      @media (max-width: 700px) {
+        .gallery-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="back-link" href="index.html">Back to home</a>
+        <h1>Carousel of Memories</h1>
+      </header>
+
+      <section aria-labelledby="gallery-title">
+        <div class="gallery-frame">
+          <button class="gallery-nav prev" type="button" aria-label="Previous photo">
+            ‹
+          </button>
+          <div class="gallery-photo">
+            <img src="" alt="Placeholder memory" width="560" height="420" loading="lazy" />
+          </div>
+          <button class="gallery-nav next" type="button" aria-label="Next photo">
+            ›
+          </button>
+        </div>
+        <p class="gallery-caption"></p>
+        <div class="gallery-dots" role="tablist" aria-label="Select a memory"></div>
+      </section>
+    </main>
+
+    <script>
+      const slides = [
+        {
+          src: "memories-diaries/day-01.jpg",
+          alt: "Day 1 of our ten-day diary together",
+          caption:
+            "Day 1 · the night before you arrived in Chennai, talking to you at the airport, nerves on my mind.",
+        },
+        {
+          src: "memories-diaries/day-02.jpg",
+          alt: "Day 2 of our ten-day diary together",
+          caption:
+            "Day 2 · lovey dovey in a cafe and not wanting to let you go.",
+        },
+        {
+          src: "memories-diaries/day-03.jpg",
+          alt: "Day 3 of our ten-day diary together",
+          caption:
+            "Day 3 · my first flowers and riding in the rain to have shawarma with you.",
+        },
+        {
+          src: "memories-diaries/day-04.jpg",
+          alt: "Day 4 of our ten-day diary together",
+          caption: "Day 4 · matcha, silver ring and walking the mall with mommy.",
+        },
+        {
+          src: "memories-diaries/day-05.jpg",
+          alt: "Day 5 of our ten-day diary together",
+          caption: "Day 5 · the day i got to hold you in perfect comfort. having our own little space. long drive, beach, impromptu snack runs",
+        },
+        {
+          src: "memories-diaries/day-06.jpg",
+          alt: "Day 6 of our ten-day diary together",
+          caption: "Day 6 · the day i got to wake up to you and content having you to myself for a day.",
+        },
+        {
+          src: "memories-diaries/day-07.jpg",
+          alt: "Day 7 of our ten-day diary together",
+          caption: "Day 7 · church with you, had you so close to me but unable to touch you, i felt truly clingy that day.",
+        },
+        {
+          src: "memories-diaries/day-08.jpg",
+          alt: "Day 8 of our ten-day diary together",
+          caption: "Day 8 · held your hand through pain, brought you home.",
+        },
+        {
+          src: "memories-diaries/day-09.jpg",
+          alt: "Day 9 of our ten-day diary together",
+          caption: "Day 9 · bike ride with my favourite passenger, morning run, ice-cream with you.",
+        },
+        {
+          src: "memories-diaries/day-10.jpg",
+          alt: "Day 10 of our ten-day diary together",
+          caption:
+            "Day 10 · The last day. gym with you, pep talk in the park, one last meal together, the clock ticking in my head on our time together.",
+        },
+      ];
+
+      const galleryImage = document.querySelector(".gallery-photo img");
+      const galleryCaption = document.querySelector(".gallery-caption");
+      const prevButton = document.querySelector(".gallery-nav.prev");
+      const nextButton = document.querySelector(".gallery-nav.next");
+      const dotsContainer = document.querySelector(".gallery-dots");
+
+      let currentSlide = 0;
+
+      slides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.role = "tab";
+        dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        dot.setAttribute("aria-label", `Go to memory ${index + 1}`);
+        dot.dataset.index = index;
+        if (index === 0) dot.classList.add("is-active");
+        dot.addEventListener("click", () => setSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll(".gallery-dots button");
+
+      function setSlide(index) {
+        currentSlide = (index + slides.length) % slides.length;
+        const { src, alt, caption } = slides[currentSlide];
+
+        galleryImage.classList.remove("loaded");
+
+        const img = new Image();
+        img.onload = () => {
+          galleryImage.src = src;
+          galleryImage.alt = alt;
+          galleryImage.classList.add("loaded");
+        };
+        img.onerror = () => {
+          galleryImage.src = "";
+          galleryImage.alt = "Image not available";
+          galleryImage.classList.add("loaded");
+        };
+        img.src = src;
+
+        galleryCaption.textContent = caption;
+        dots.forEach((dot, idx) => {
+          const isActive = idx === currentSlide;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-selected", String(isActive));
+        });
+      }
+
+      prevButton.addEventListener("click", () => setSlide(currentSlide - 1));
+      nextButton.addEventListener("click", () => setSlide(currentSlide + 1));
+
+      setSlide(0);
+    </script>
+  </body>
+</html>

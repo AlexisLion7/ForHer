@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Little Notes</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        --bg: linear-gradient(160deg, #ffdee9 0%, #b5fffc 100%);
+        --panel-bg: rgba(255, 255, 255, 0.82);
+        --text-primary: #3a2c51;
+        --text-subtle: rgba(58, 44, 81, 0.78);
+        --accent: #ff6f91;
+        --note-yellow: #fff6c5;
+        --note-mint: #dcf6f3;
+        --note-rose: #ffe1ec;
+        --shadow: rgba(58, 44, 81, 0.16);
+        --shadow-strong: rgba(58, 44, 81, 0.26);
+        --max-width: min(960px, 92vw);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 56px 16px 72px;
+        display: flex;
+        justify-content: center;
+        background: var(--bg);
+      }
+
+      main {
+        width: var(--max-width);
+        display: grid;
+        gap: clamp(24px, 4vw, 36px);
+        padding: clamp(32px, 5vw, 56px);
+        border-radius: clamp(24px, 4vw, 36px);
+        background: var(--panel-bg);
+        box-shadow: 0 28px 70px var(--shadow);
+      }
+
+      header {
+        display: grid;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .back-link {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(255, 111, 145, 0.16);
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.6rem);
+        color: var(--text-primary);
+      }
+
+      .section-intro {
+        margin: 0 auto;
+        max-width: 620px;
+        text-align: center;
+        font-size: clamp(1rem, 2.2vw, 1.1rem);
+        line-height: 1.6;
+        color: var(--text-subtle);
+      }
+
+      .notes-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 32px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        padding: clamp(20px, 4vw, 32px) 0;
+      }
+
+      .note-button {
+        padding: clamp(20px, 3vw, 28px) clamp(24px, 4vw, 32px);
+        border: none;
+        border-radius: clamp(20px, 3vw, 28px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+        box-shadow: 0 16px 32px var(--shadow);
+        cursor: pointer;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.3px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        text-align: center;
+      }
+
+      .note-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px var(--shadow-strong);
+      }
+
+      .note-button:nth-child(1) {
+        background: linear-gradient(135deg, var(--note-yellow), rgba(255, 246, 197, 0.95));
+      }
+
+      .note-button:nth-child(2) {
+        background: linear-gradient(135deg, var(--note-mint), rgba(220, 246, 243, 0.95));
+      }
+
+      .note-button:nth-child(3) {
+        background: linear-gradient(135deg, var(--note-rose), rgba(255, 225, 236, 0.95));
+      }
+
+      .note-button:nth-child(4) {
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 192, 203, 0.85));
+      }
+
+      .note-button:nth-child(5) {
+        background: linear-gradient(135deg, rgba(221, 160, 221, 0.9), rgba(238, 130, 238, 0.85));
+      }
+
+      .note-button:nth-child(6) {
+        background: linear-gradient(135deg, rgba(255, 160, 122, 0.9), rgba(255, 182, 193, 0.85));
+      }
+
+      .message-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(20px, 4vw, 40px);
+        background: rgba(58, 44, 81, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .message-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .message-content {
+        position: relative;
+        max-width: min(650px, 90vw);
+        max-height: 85vh;
+        padding: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 48px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 32px 64px rgba(58, 44, 81, 0.5);
+        text-align: center;
+        border: 2px solid rgba(255, 111, 145, 0.2);
+        overflow-y: auto;
+      }
+
+      .message-content p {
+        margin: 0;
+        font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+        line-height: 1.9;
+        color: #3a2c51;
+        letter-spacing: 0.3px;
+      }
+
+      .message-close {
+        position: absolute;
+        top: clamp(16px, 3vw, 20px);
+        right: clamp(16px, 3vw, 20px);
+        width: clamp(36px, 5vw, 44px);
+        height: clamp(36px, 5vw, 44px);
+        border: none;
+        border-radius: 50%;
+        background: rgba(58, 44, 81, 0.1);
+        color: var(--text-primary);
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="back-link" href="index.html">Back to home</a>
+        <h1 class="section-title">Little Notes For You</h1>
+        <p class="section-intro">
+          Tap. Open. Feel. Each one is a quiet love letter.
+        </p>
+      </header>
+
+      <div class="notes-grid">
+        <button class="note-button" type="button" data-message="Sometimes I close my eyes and pretend you're right here. I can almost feel your hand in mine, your laugh in my ear, your heartbeat against my chest, your warmth on my skin, the comfort of your presence. My home.">
+          Open me
+        </button>
+        <button class="note-button" type="button" data-message="I keep every 'good morning' text. Every 'I miss you.' Every sleepy voice note. They're proof that even 10,553 miles apart, we're building something real. Something that distance can't break, only make it all the more valuable.">
+          Peek inside
+        </button>
+        <button class="note-button" type="button" data-message="One day, I'll wake up next to you. No alarms. No goodbyes. Just your face, your warmth, your everything. Until then, I'll keep choosing you every single day, across every single mile. Because you're worth every second of the wait.">
+          Read me
+        </button>
+        <button class="note-button" type="button" data-message="I love you. Three words that don't feel big enough for what I feel. I love the way you laugh. I love how you make me feel seen. I love that even oceans apart, you're still the first thing I think about when I wake up and the last before I sleep. I love you, simply and completely.">
+          I love you
+        </button>
+        <button class="note-button" type="button" data-message="I miss you. Not just when we hang up the call or when I see something that reminds me of you. I miss you in the quiet moments, in the loud ones, in every space between heartbeats. I miss your presence, your energy, the way the world feels different when I am in your arms. And I'll keep missing you until I don't have to anymore.">
+          I miss you
+        </button>
+        <button class="note-button" type="button" data-message="I adore you. Every little thing about you. The way you smile, the way you think, the way you pop your hips for a mirror selfie. I adore how you see the world, how you see me. I adore the person you are and the person you're becoming. I adore you, now and always.">
+          I adore you
+        </button>
+      </div>
+    </main>
+
+    <div class="message-modal" id="messageModal" role="dialog" aria-modal="true">
+      <div class="message-content">
+        <button class="message-close" type="button" aria-label="Close message">×</button>
+        <p id="messageText"></p>
+      </div>
+    </div>
+
+    <script>
+      const noteButtons = document.querySelectorAll(".note-button");
+      const messageModal = document.getElementById("messageModal");
+      const messageText = document.getElementById("messageText");
+      const closeButton = document.querySelector(".message-close");
+
+      function openModal(message) {
+        messageText.textContent = message;
+        messageModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        messageModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      noteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const message = button.getAttribute("data-message");
+          openModal(message);
+        });
+      });
+
+      closeButton.addEventListener("click", closeModal);
+
+      messageModal.addEventListener("click", (e) => {
+        if (e.target === messageModal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && messageModal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>
