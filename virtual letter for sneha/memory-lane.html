@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Down Memory Lane</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        --bg: linear-gradient(160deg, #ffdee9 0%, #b5fffc 100%);
+        --panel-bg: rgba(255, 255, 255, 0.82);
+        --text-primary: #3a2c51;
+        --text-subtle: rgba(58, 44, 81, 0.78);
+        --accent: #ff6f91;
+        --accent-blue: #47a6ff;
+        --accent-soft: rgba(255, 111, 145, 0.16);
+        --note-yellow: #fff6c5;
+        --note-mint: #dcf6f3;
+        --note-rose: #ffe1ec;
+        --shadow: rgba(58, 44, 81, 0.16);
+        --shadow-strong: rgba(58, 44, 81, 0.26);
+        --max-width: min(960px, 92vw);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 56px 16px 72px;
+        display: flex;
+        justify-content: center;
+        background: var(--bg);
+      }
+
+      main {
+        width: var(--max-width);
+        display: grid;
+        gap: clamp(32px, 5vw, 48px);
+        padding: clamp(32px, 5vw, 56px);
+        border-radius: clamp(24px, 4vw, 36px);
+        background: var(--panel-bg);
+        box-shadow: 0 28px 70px var(--shadow);
+      }
+
+      header {
+        display: grid;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .back-link {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(255, 111, 145, 0.16);
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 5vw, 3rem);
+        color: var(--text-primary);
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(1.8rem, 3.4vw, 2.2rem);
+        color: var(--text-primary);
+        text-align: center;
+      }
+
+      .section-intro {
+        margin: 0 auto;
+        max-width: 620px;
+        text-align: center;
+        font-size: clamp(1rem, 2.2vw, 1.1rem);
+        line-height: 1.6;
+        color: var(--text-subtle);
+      }
+
+      .story-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .story-card {
+        position: relative;
+        padding: clamp(24px, 4vw, 32px);
+        border-radius: clamp(18px, 3vw, 24px);
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 16px 40px var(--shadow);
+        display: grid;
+        gap: 16px;
+      }
+
+      .story-card h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 1.65rem);
+        color: var(--text-primary);
+      }
+
+      .story-card p {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.6;
+        color: var(--text-subtle);
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: clamp(28px, 4vw, 36px);
+        padding: clamp(20px, 3vw, 28px);
+        border-radius: clamp(20px, 3vw, 26px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
+        box-shadow: 0 20px 44px var(--shadow);
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: clamp(40px, 5vw, 52px);
+        bottom: clamp(40px, 5vw, 52px);
+        left: clamp(18px, 3vw, 32px);
+        width: 4px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-blue));
+        opacity: 0.55;
+      }
+
+      .milestone {
+        position: relative;
+        margin-left: clamp(46px, 7vw, 68px);
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 18px;
+        padding: clamp(18px, 3vw, 24px);
+        box-shadow: 0 14px 30px var(--shadow);
+      }
+
+      .milestone::before {
+        content: "";
+        position: absolute;
+        top: clamp(18px, 3vw, 24px);
+        left: calc(-1 * clamp(30px, 4vw, 36px));
+        width: clamp(18px, 3vw, 22px);
+        height: clamp(18px, 3vw, 22px);
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.95);
+        background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+        box-shadow: 0 10px 18px rgba(71, 166, 255, 0.3);
+      }
+
+      .milestone h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.1rem, 2.4vw, 1.25rem);
+        color: var(--text-primary);
+      }
+
+      .milestone time {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: rgba(58, 44, 81, 0.6);
+      }
+
+      .milestone p {
+        margin: 12px 0 0;
+        font-size: 1rem;
+        line-height: 1.55;
+        color: var(--text-subtle);
+      }
+
+      .notes-grid {
+        display: grid;
+        gap: clamp(20px, 3vw, 32px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        padding: clamp(20px, 4vw, 32px) 0;
+      }
+
+      .note-button {
+        padding: clamp(20px, 3vw, 28px) clamp(24px, 4vw, 32px);
+        border: none;
+        border-radius: clamp(20px, 3vw, 28px);
+        box-shadow: 0 16px 32px var(--shadow);
+        cursor: pointer;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.3px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+      }
+
+      .note-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px var(--shadow-strong);
+      }
+
+      .note-button:nth-child(1) {
+        background: linear-gradient(135deg, var(--note-yellow), rgba(255, 246, 197, 0.95));
+      }
+
+      .note-button:nth-child(2) {
+        background: linear-gradient(135deg, var(--note-mint), rgba(220, 246, 243, 0.95));
+      }
+
+      .note-button:nth-child(3) {
+        background: linear-gradient(135deg, var(--note-rose), rgba(255, 225, 236, 0.95));
+      }
+
+      .note-button:nth-child(4) {
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 192, 203, 0.85));
+      }
+
+      .note-button:nth-child(5) {
+        background: linear-gradient(135deg, rgba(221, 160, 221, 0.9), rgba(238, 130, 238, 0.85));
+      }
+
+      .note-button:nth-child(6) {
+        background: linear-gradient(135deg, rgba(255, 160, 122, 0.9), rgba(255, 182, 193, 0.85));
+      }
+
+      .message-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(20px, 4vw, 40px);
+        background: rgba(58, 44, 81, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .message-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .message-content {
+        position: relative;
+        max-width: min(650px, 90vw);
+        max-height: 85vh;
+        padding: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 48px);
+        border-radius: clamp(24px, 4vw, 32px);
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 32px 64px rgba(58, 44, 81, 0.5);
+        text-align: center;
+        border: 2px solid rgba(255, 111, 145, 0.2);
+        overflow-y: auto;
+      }
+
+      .message-content p {
+        margin: 0;
+        font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+        line-height: 1.9;
+        color: #3a2c51;
+        letter-spacing: 0.3px;
+      }
+
+      .message-close {
+        position: absolute;
+        top: clamp(16px, 3vw, 20px);
+        right: clamp(16px, 3vw, 20px);
+        width: clamp(36px, 5vw, 44px);
+        height: clamp(36px, 5vw, 44px);
+        border: none;
+        border-radius: 50%;
+        background: rgba(58, 44, 81, 0.1);
+        color: var(--text-primary);
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .gallery-frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.92);
+        padding: clamp(18px, 3vw, 26px);
+        border-radius: clamp(24px, 4vw, 30px);
+        box-shadow: 0 24px 50px var(--shadow);
+      }
+
+      .gallery-photo {
+        width: clamp(260px, 70vw, 560px);
+        aspect-ratio: 4 / 3;
+        border-radius: clamp(16px, 3vw, 24px);
+        overflow: hidden;
+        box-shadow: 0 18px 38px rgba(58, 44, 81, 0.24);
+        background: linear-gradient(135deg, rgba(255, 220, 226, 0.42), rgba(218, 255, 250, 0.42));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease, opacity 0.5s ease;
+        opacity: 0;
+      }
+
+      .gallery-photo img.loaded {
+        opacity: 1;
+      }
+
+      .gallery-caption {
+        margin: 18px auto 0;
+        max-width: 520px;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--text-subtle);
+      }
+
+      .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1.6rem;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 10px 20px rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .gallery-nav:hover {
+        transform: translateY(-50%) scale(1.04);
+        box-shadow: 0 14px 24px rgba(58, 44, 81, 0.24);
+      }
+
+      .gallery-nav.prev {
+        left: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-nav.next {
+        right: clamp(8px, 2vw, 18px);
+      }
+
+      .gallery-dots {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .gallery-dots button {
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        background: rgba(58, 44, 81, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .gallery-dots button.is-active {
+        background: var(--accent);
+        transform: scale(1.2);
+      }
+
+      .continue-link {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        box-shadow: 0 10px 24px rgba(58, 44, 81, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .continue-link:hover,
+      .continue-link:focus-visible {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(58, 44, 81, 0.3);
+      }
+
+      @media (max-width: 700px) {
+        .gallery-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="back-link" href="index.html">Back to home</a>
+        <h1>Down Memory Lane</h1>
+        <p class="section-intro">
+          All the moments that made us, all the memories I hold close.
+        </p>
+      </header>
+
+      <section aria-labelledby="story-title">
+        <h2 id="story-title" class="section-title">Our Long-Distance Story</h2>
+        <div class="story-grid">
+          <article class="story-card">
+            <h3>How It Started</h3>
+            <p>
+              A birthday message I was too nervous to send, yet I did. A quiet confession that I had a crush on you.
+              You smiled. You stayed. And over time, something changed.
+              I started growing closer to the girl I once admired from a distance.
+              And when you finally told me you felt it too, that you liked me back, it was the sweetest moment.
+            </p>
+          </article>
+          <article class="story-card">
+            <h3>Held By Time Zones</h3>
+            <p>
+              You say good morning while I whisper goodnight.
+              And yet our hearts meet in the middle.
+              With sleepy smiles, with surprise calls, in the way your voice can calm storms in me you do not even know are there.
+            </p>
+          </article>
+          <article class="story-card">
+            <h3>Dreaming Forward</h3>
+            <p>
+              I imagine us in the same room.
+              Your legs tucked under mine. My head resting on your chest.
+              Feeling your smile on my skin, hearing your voice fill the space we finally share.
+              Until that day comes, I will hold on to the wait.
+              And when I finally wake up to you, not my phone, not a message, just you.
+              It will feel like I have found my way home.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="milestone-title">
+        <h2 id="milestone-title" class="section-title">Milestones That Made Us</h2>
+        <div class="timeline">
+          <article class="milestone">
+            <time datetime="2025-01-20">20 Jan 2025</time>
+            <h3>We Decided To Give Us A Shot</h3>
+            <p>
+              On a call where you unexpectedly confessed. The moment that changed everything.
+              A decision to try, to see where this could go. The beginning of us.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-02-17">17 Feb 2025</time>
+            <h3>We Made It Official</h3>
+            <p>
+              Our first "I love you." which was bubbling in us and finally came out.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-04">April 2025</time>
+            <h3>Planning To Meet</h3>
+            <p>
+              We tried to come to each other. Tickets considered, plans made.
+              The anticipation building, hearts racing at the thought of finally being together.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-06">June 2025</time>
+            <h3>Our First Meeting</h3>
+            <p>
+              Ten days together, making memories to hold on to for a long time.
+              Filling my senses and making me fall in love with you more and more.
+            </p>
+          </article>
+          <article class="milestone">
+            <time datetime="2025-08">August 2025</time>
+            <h3>Six Months Together</h3>
+            <p>
+              Half a year of choosing each other, every single day.
+              Six months of growing closer despite the distance.
+              Six months of proving that love knows no boundaries.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="notes-title">
+        <h2 id="notes-title" class="section-title">Little Notes For You</h2>
+        <p class="section-intro">
+          Tap. Open. Feel. Each one is a quiet love letter.
+        </p>
+        <div class="notes-grid">
+          <button class="note-button" type="button" data-message="Sometimes I close my eyes and pretend you're right here. I can almost feel your hand in mine, your laugh in my ear, your heartbeat against my chest, your warmth on my skin, the comfort of your presence. My home.">
+            Open me
+          </button>
+          <button class="note-button" type="button" data-message="I keep every 'good morning' text. Every 'I miss you.' Every sleepy voice note. They're proof that even 10,553 miles apart, we're building something real. Something that distance can't break, only make it all the more valuable.">
+            Peek inside
+          </button>
+          <button class="note-button" type="button" data-message="One day, I'll wake up next to you. No alarms. No goodbyes. Just your face, your warmth, your everything. Until then, I'll keep choosing you every single day, across every single mile. Because you're worth every second of the wait.">
+            Read me
+          </button>
+          <button class="note-button" type="button" data-message="I love you. Three words that don't feel big enough for what I feel. I love the way you laugh. I love how you make me feel seen. I love that even oceans apart, you're still the first thing I think about when I wake up and the last before I sleep. I love you, simply and completely.">
+            I love you
+          </button>
+          <button class="note-button" type="button" data-message="I miss you. Not just when we hang up the call or when I see something that reminds me of you. I miss you in the quiet moments, in the loud ones, in every space between heartbeats. I miss your presence, your energy, the way the world feels different when I am in your arms. And I'll keep missing you until I don't have to anymore.">
+            I miss you
+          </button>
+          <button class="note-button" type="button" data-message="I adore you. Every little thing about you. The way you smile, the way you think, the way you pop your hips for a mirror selfie. I adore how you see the world, how you see me. I adore the person you are and the person you're becoming. I adore you, now and always.">
+            I adore you
+          </button>
+        </div>
+      </section>
+
+      <section aria-labelledby="gallery-title">
+        <h2 id="gallery-title" class="section-title">Carousel of Memories</h2>
+        <div class="gallery-frame">
+          <button class="gallery-nav prev" type="button" aria-label="Previous photo">
+            ‹
+          </button>
+          <div class="gallery-photo">
+            <img src="" alt="Placeholder memory" width="560" height="420" loading="lazy" />
+          </div>
+          <button class="gallery-nav next" type="button" aria-label="Next photo">
+            ›
+          </button>
+        </div>
+        <p class="gallery-caption"></p>
+        <div class="gallery-dots" role="tablist" aria-label="Select a memory"></div>
+      </section>
+
+      <a class="continue-link" href="valentine.html">Continue to the question</a>
+    </main>
+
+    <div class="message-modal" id="messageModal" role="dialog" aria-modal="true">
+      <div class="message-content">
+        <button class="message-close" type="button" aria-label="Close message">×</button>
+        <p id="messageText"></p>
+      </div>
+    </div>
+
+    <script>
+      const noteButtons = document.querySelectorAll(".note-button");
+      const messageModal = document.getElementById("messageModal");
+      const messageText = document.getElementById("messageText");
+      const closeButton = document.querySelector(".message-close");
+
+      function openModal(message) {
+        messageText.textContent = message;
+        messageModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        messageModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      noteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const message = button.getAttribute("data-message");
+          openModal(message);
+        });
+      });
+
+      closeButton.addEventListener("click", closeModal);
+
+      messageModal.addEventListener("click", (e) => {
+        if (e.target === messageModal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && messageModal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+
+      const slides = [
+        {
+          src: "memories-diaries/day-01.jpg",
+          alt: "Day 1 of our ten-day diary together",
+          caption:
+            "Day 1 · our first hug, first date, first kiss. the day i struggled to look at you and then could never take my eyes and hands off you.",
+        },
+        {
+          src: "memories-diaries/day-02.jpg",
+          alt: "Day 2 of our ten-day diary together",
+          caption: "Day 2 · lovey dovey in a cafe and not wanting to let you go.",
+        },
+        {
+          src: "memories-diaries/day-03.jpg",
+          alt: "Day 3 of our ten-day diary together",
+          caption:
+            "Day 3 · my first flowers and riding in the rain to have shawarma with you.",
+        },
+        {
+          src: "memories-diaries/day-04.jpg",
+          alt: "Day 4 of our ten-day diary together",
+          caption: "Day 4 · matcha, silver ring and walking the mall with mommy.",
+        },
+        {
+          src: "memories-diaries/day-05.jpg",
+          alt: "Day 5 of our ten-day diary together",
+          caption:
+            "Day 5 · the day i got to hold you in perfect comfort. having our own little space. long drive, beach, impromptu snack runs",
+        },
+        {
+          src: "memories-diaries/day-06.jpg",
+          alt: "Day 6 of our ten-day diary together",
+          caption:
+            "Day 6 · the day i got to wake up to you and content having you to myself for a day.",
+        },
+        {
+          src: "memories-diaries/day-07.jpg",
+          alt: "Day 7 of our ten-day diary together",
+          caption:
+            "Day 7 · church with you, had you so close to me but unable to touch you, i felt truly clingy that day.",
+        },
+        {
+          src: "memories-diaries/day-08.jpg",
+          alt: "Day 8 of our ten-day diary together",
+          caption: "Day 8 · held your hand through pain, brought you home.",
+        },
+        {
+          src: "memories-diaries/day-09.jpg",
+          alt: "Day 9 of our ten-day diary together",
+          caption:
+            "Day 9 · bike ride with my favourite passenger, morning run, ice-cream with you.",
+        },
+        {
+          src: "memories-diaries/day-10.jpg",
+          alt: "Day 10 of our ten-day diary together",
+          caption:
+            "Day 10 · The last day. gym with you, pep talk in the park, one last meal together, the clock ticking in my head on our time together.",
+        },
+      ];
+
+      const galleryImage = document.querySelector(".gallery-photo img");
+      const galleryCaption = document.querySelector(".gallery-caption");
+      const prevButton = document.querySelector(".gallery-nav.prev");
+      const nextButton = document.querySelector(".gallery-nav.next");
+      const dotsContainer = document.querySelector(".gallery-dots");
+
+      let currentSlide = 0;
+
+      slides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.role = "tab";
+        dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        dot.setAttribute("aria-label", `Go to memory ${index + 1}`);
+        dot.dataset.index = index;
+        if (index === 0) dot.classList.add("is-active");
+        dot.addEventListener("click", () => setSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll(".gallery-dots button");
+
+      function setSlide(index) {
+        currentSlide = (index + slides.length) % slides.length;
+        const { src, alt, caption } = slides[currentSlide];
+
+        galleryImage.classList.remove("loaded");
+
+        const img = new Image();
+        img.onload = () => {
+          galleryImage.src = src;
+          galleryImage.alt = alt;
+          galleryImage.classList.add("loaded");
+        };
+        img.onerror = () => {
+          galleryImage.src = "";
+          galleryImage.alt = "Image not available";
+          galleryImage.classList.add("loaded");
+        };
+        img.src = src;
+
+        galleryCaption.textContent = caption;
+        dots.forEach((dot, idx) => {
+          const isActive = idx === currentSlide;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-selected", String(isActive));
+        });
+      }
+
+      prevButton.addEventListener("click", () => setSlide(currentSlide - 1));
+      nextButton.addEventListener("click", () => setSlide(currentSlide + 1));
+
+      setSlide(0);
+    </script>
+  </body>
+</html>

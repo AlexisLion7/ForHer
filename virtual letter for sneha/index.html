@@ -135,39 +135,7 @@
         color: var(--text-subtle);
       }
 
-      .nav-section {
-        display: grid;
-        gap: 20px;
-      }
 
-      .nav-grid {
-        display: grid;
-        gap: clamp(16px, 3vw, 24px);
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-
-      .nav-card {
-        display: grid;
-        gap: 8px;
-        padding: clamp(18px, 3vw, 24px);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 14px 30px var(--shadow);
-        text-decoration: none;
-        color: var(--text-primary);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .nav-card:hover,
-      .nav-card:focus-visible {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px var(--shadow-strong);
-      }
-
-      .nav-card span {
-        font-size: 0.95rem;
-        color: var(--text-subtle);
-      }
 
       .story-grid {
         display: grid;
@@ -1435,173 +1403,10 @@
         <div class="signature">I love you</div>
       </header>
 
-      <section class="nav-section" aria-labelledby="nav-title">
-        <h2 id="nav-title" class="section-title">Choose a chapter</h2>
-        <p class="section-intro">
-          Each section now has its own page. Pick where you want to go next.
-        </p>
-        <div class="nav-grid">
-          <a class="nav-card" href="valentine.html">
-            <strong>Valentine</strong>
-            <span>A question just for you.</span>
-          </a>
-          <a class="nav-card" href="story.html">
-            <strong>Our Story</strong>
-            <span>How it started, time zones, dreaming forward.</span>
-          </a>
-          <a class="nav-card" href="milestones.html">
-            <strong>Milestones</strong>
-            <span>The dates and moments that made us.</span>
-          </a>
-          <a class="nav-card" href="notes.html">
-            <strong>Little Notes</strong>
-            <span>Tap to open heartfelt notes.</span>
-          </a>
-          <a class="nav-card" href="distance.html">
-            <strong>Distance</strong>
-            <span>Our miles, the flight, the message.</span>
-          </a>
-          <a class="nav-card" href="playlist.html">
-            <strong>Playlist</strong>
-            <span>One button to our Spotify list.</span>
-          </a>
-          <a class="nav-card" href="gallery.html">
-            <strong>Gallery</strong>
-            <span>Swipe through our Chennai days.</span>
-          </a>
-          <a class="nav-card" href="promise.html">
-            <strong>Promise</strong>
-            <span>Time together and the next hug.</span>
-          </a>
-          <a class="nav-card" href="memories.html">
-            <strong>More Memories</strong>
-            <span>Extra moments and future notes.</span>
-          </a>
-        </div>
-      </section>
-
-      <section aria-labelledby="story-title">
-        <h2 id="story-title" class="section-title">Our Long-Distance Story</h2>
-        <div class="story-grid">
-          <article class="story-card" data-icon="•">
-            <h3>How It Started</h3>
-            <p>
-              A birthday message I was too nervous to send, yet I did. A quiet confession that I had a crush on you.
-              You smiled. You stayed. And over time, something changed.
-              I started growing closer to the girl I once admired from a distance.
-              And when you finally told me you felt it too, that you liked me back ,it was the sweetest moment.
-            </p>
-          </article>
-          <article class="story-card" data-icon="•">
-            <h3>Held By Time Zones</h3>
-            <p>
-              You say good morning while I whisper goodnight.
-              And yet our hearts meet in the middle.
-              With sleepy smiles, with surprise calls,In the way your voice can calm storms in me you don't even know are there.
-            </p>
-          </article>
-          <article class="story-card" data-icon="•">
-            <h3>Dreaming Forward</h3>
-            <p>
-              I imagine us in the same room.
-              Your legs tucked under mine. My head resting on your chest.
-              Feeling your smile on my skin, hearing your voice fill the space we finally share.
-              Until that day comes, I’ll hold on to the wait.
-              And when I finally wake up to you. not my phone, not a message, just you.
-              It’ll feel like I’ve found my way home
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section aria-labelledby="milestone-title">
-        <h2 id="milestone-title" class="section-title">Milestones That Made Us</h2>
-        <div class="timeline">
-          <article class="milestone">
-            <time datetime="2025-01-20">20 Jan 2025</time>
-            <h3>We Decided To Give Us A Shot</h3>
-            <p>
-              On a call where you unexpectedly confessed. The moment that changed everything.
-              A decision to try, to see where this could go. The beginning of us.
-            </p>
-          </article>
-          <article class="milestone">
-            <time datetime="2025-02-17">17 Feb 2025</time>
-            <h3>We Made It Official</h3>
-            <p>
-              Our first "I love you." which was bubbling in us and finally came out.
-            </p>
-          </article>
-          <article class="milestone">
-            <time datetime="2025-04">April 2025</time>
-            <h3>Planning To Meet</h3>
-            <p>
-              We tried to come to each other. Tickets considered, plans made.
-              The anticipation building, hearts racing at the thought of finally being together.
-            </p>
-          </article>
-          <article class="milestone">
-            <time datetime="2025-06">June 2025</time>
-            <h3>Our First Meeting</h3>
-            <p>
-              Ten days together, making memories to hold on to for a long time.
-              filling my senses and making me fall in love with you more and more.
-            </p>
-          </article>
-          <article class="milestone">
-            <time datetime="2025-08">August 2025</time>
-            <h3>Six Months Together</h3>
-            <p>
-              Half a year of choosing each other, every single day.
-              Six months of growing closer despite the distance.
-              Six months of proving that love knows no boundaries.
-            </p>
-          </article>
-        </div>
-        <p class="section-intro" style="margin-top: clamp(32px, 5vw, 48px); text-align: center; font-style: italic; color: var(--text-subtle);">
-          And this is just the beginning. I can't wait to add more milestones to our story. 
-        </p>
-      </section>
-
-      <section aria-labelledby="notes-title">
-        <h2 id="notes-title" class="section-title">Little Notes For You</h2>
-        <p class="section-intro" style="margin-bottom: 24px;">
-          Tap. Open. Feel.
-          Each one is a quiet love letter. For the days when you miss me. For the moments when you don't know how deeply you're loved.
-        </p>
-        <div class="notes-grid">
-          <button class="note-button" type="button" data-message="Sometimes I close my eyes and pretend you're right here. I can almost feel your hand in mine, your laugh in my ear, your heartbeat against my chest, your warmth on my skin, the comfort of your presence. My home">
-            <span>Open me</span>
-          </button>
-          <button class="note-button" type="button" data-message="I keep every 'good morning' text. Every 'I miss you.' Every sleepy voice note. They're proof that even 10,553 miles apart, we're building something real. Something that distance can't break, only make it all the more valuable.">
-            <span>Peek inside</span>
-          </button>
-          <button class="note-button" type="button" data-message="One day, I'll wake up next to you. No alarms. No goodbyes. Just your face, your warmth, your everything. Until then, I'll keep choosing you every single day, across every single mile. Because you're worth every second of the wait.">
-            <span>Read me</span>
-          </button>
-          <button class="note-button" type="button" data-message="I love you. Three words that don't feel big enough for what I feel. I love the way you laugh. I love how you make me feel seen. I love that even oceans apart, you're still the first thing I think about when I wake up and the last before I sleep. I love you, simply and completely.">
-            <span>I love you</span>
-          </button>
-          <button class="note-button" type="button" data-message="I miss you. Not just when we hang up the call or when I see something that reminds me of you. I miss you in the quiet moments, in the loud ones, in every space between heartbeats. I miss your presence, your energy, the way the world feels different when i'm in your arms. And I'll keep missing you until I don't have to anymore.">
-            <span>I miss you</span>
-          </button>
-          <button class="note-button" type="button" data-message="I adore you. Every little thing about you. The way you smile, the way you think, the way you pop your hips for a mirror selfie. I adore how you see the world, how you see me. I adore the person you are and the person you're becoming. I adore you, now and always.">
-            <span>I adore you</span>
-          </button>
-        </div>
-      </section>
-
-      <div class="message-modal" id="messageModal" role="dialog" aria-labelledby="messageTitle" aria-modal="true">
-        <div class="message-content">
-          <button class="message-close" type="button" aria-label="Close message">×</button>
-          <p id="messageText"></p>
-        </div>
-      </div>
-
       <section class="distance-band" aria-labelledby="distance-title">
         <div class="distance-grid">
           <h2 id="distance-title" class="section-title">Two Cities, One Journey</h2>
-          
+
           <div class="distance-stats">
             <div class="distance-stat">
               <div class="distance-stat-value">10,553</div>
@@ -1632,8 +1437,7 @@
           </div>
 
           <p class="distance-message">
-            The miles don’t scare me.
-            The time zones don’t either.
+            The miles do not scare me. The time zones do not either.
             What gets me is waking up without you next to me.
             But even from oceans apart, you still feel close.
             Because every single day, I choose you.
@@ -1647,15 +1451,15 @@
           <h2 id="playlist-title" class="section-title">Our Shared Playlist</h2>
           <p>
             A soundtrack for us.
-            For long calls, short naps, soft mornings, and heavy goodbyes.
+            For soft mornings, heavy goodbyes, and the in-between.
             For "I miss you" without saying it.
             For "I'm right here" when we feel far.
           </p>
         </div>
         <div class="playlist-button-container">
-          <a 
-            href="https://open.spotify.com/playlist/439v8xzaPjXqeZ3SDWEBka?si=2ddcc706f9b44381" 
-            target="_blank" 
+          <a
+            href="https://open.spotify.com/playlist/439v8xzaPjXqeZ3SDWEBka?si=2ddcc706f9b44381"
+            target="_blank"
             rel="noopener"
             class="playlist-button"
           >
@@ -1665,50 +1469,11 @@
         </div>
       </section>
 
-      <section aria-labelledby="gallery-title">
-        <h2 id="gallery-title" class="section-title">Carousel of Memories</h2>
-        <div class="gallery-frame">
-          <button
-            class="gallery-nav prev"
-            type="button"
-            aria-label="Previous photo"
-          >
-            ‹
-          </button>
-          <div class="gallery-photo">
-            <img
-              src=""
-              alt="Placeholder memory"
-              width="560"
-              height="420"
-              loading="lazy"
-            />
-          </div>
-          <button class="gallery-nav next" type="button" aria-label="Next photo">
-            ›
-          </button>
-        </div>
-        <p class="gallery-caption"></p>
-        <div class="gallery-dots" role="tablist" aria-label="Select a memory"></div>
-      </section>
-
-      <section class="page-link-section" aria-labelledby="more-title">
-        <h2 id="more-title" class="section-title">More Memories</h2>
-        <p>
-          A small corner with a few extra moments, just for us.
-        </p>
-        <div>
-          <a class="page-link-button" href="memories.html">
-            Open the next page
-          </a>
-        </div>
-      </section>
-
       <section class="promise" aria-labelledby="promise-title">
         <h2 id="promise-title">A Promise from far beyond</h2>
         <p>
-          This isn't just a webpage.
-          It's a love letter I'll keep writing until distance is no longer something we measure.
+          This is not just a webpage.
+          It is a love letter I will keep writing until distance is no longer something we measure.
         </p>
         <p style="margin-top: 20px;">
           Until I can kiss you good morning instead of texting it.
@@ -1716,40 +1481,28 @@
         </p>
         <p style="margin-top: 20px;">
           Thank you for loving me from across the world.
-          Thank you for choosing me when it would've been easier not to.
-          I promise to hold you in my heart until "soon" becomes "always" and i can hold you in my arms.
+          Thank you for choosing me when it would have been easier not to.
+          I promise to hold you in my heart until "soon" becomes "always" and I can hold you in my arms.
         </p>
         <div class="count-chip" id="time-together" aria-live="polite">
           Together since 17 Feb 2025 (calculating…)
         </div>
         <div class="count-chip" id="next-hug" aria-live="polite">
-          Countdown to our next hug: set your date here
+          Countdown to our next hug: 22 Jan 2026
         </div>
       </section>
 
-      <!--
-      <div class="secret-trigger">
-        <button class="secret-button" type="button" id="secretTrigger">
-          <span>Click for our secrets</span>
-        </button>
-      </div>
-
-      <section class="secret-section" id="secretSection" aria-hidden="true">
-        <div class="secret-content">
-          <h2>Our Little Secrets</h2>
-          <ul class="secret-list">
-            <li class="secret-item">I save screenshots of your sleepy voice messages and listen to them when I miss you most.</li>
-            <li class="secret-item">I count down the hours until our next call like it's the most important appointment of my day.</li>
-            <li class="secret-item">Sometimes I re-read our old messages just to remember how we started.</li>
-            <li class="secret-item">I've memorized your timezone better than my own, just so I know when you're waking up or going to sleep.</li>
-            <li class="secret-item">I get butterflies every single time I see your name pop up on my phone.</li>
-            <li class="secret-item">I imagine what it'll be like to wake up next to you, and that thought gets me through the hardest days.</li>
-            <li class="secret-item">I love how you make me feel: seen, understood, and completely myself.</li>
-            <li class="secret-item">Even when we're apart, you're the first thing I think about in the morning and the last before I sleep.</li>
-          </ul>
+      <section class="page-link-section" aria-labelledby="memory-title">
+        <h2 id="memory-title" class="section-title">Down Memory Lane</h2>
+        <p>
+          When you are ready, let us walk through our memories together.
+        </p>
+        <div>
+          <a class="page-link-button" href="memory-lane.html">
+            Walk with me
+          </a>
         </div>
       </section>
-      -->
 
       <footer>More memories loading... and one day, this will just be our history. No more waiting.</footer>
     </main>
@@ -1757,277 +1510,6 @@
     <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
 
     <script>
-      const noteButtons = document.querySelectorAll(".note-button");
-      const messageModal = document.getElementById("messageModal");
-      const messageText = document.getElementById("messageText");
-      const closeButton = document.querySelector(".message-close");
-
-      function createConfetti() {
-        const colors = ["#ff6f91", "#47a6ff", "#ffdee9", "#b5fffc"];
-        for (let i = 0; i < 30; i++) {
-          const confetti = document.createElement("div");
-          confetti.className = "confetti";
-          confetti.style.left = Math.random() * 100 + "%";
-          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.animationDelay = Math.random() * 0.5 + "s";
-          confetti.style.width = Math.random() * 8 + 6 + "px";
-          confetti.style.height = confetti.style.width;
-          document.body.appendChild(confetti);
-          setTimeout(() => confetti.remove(), 3000);
-        }
-      }
-
-      function createFloatingHeart() {
-        const heart = document.createElement("div");
-        heart.className = "floating-heart";
-        heart.textContent = "♥";
-        heart.style.left = Math.random() * 100 + "%";
-        heart.style.animationDelay = Math.random() * 2 + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 3000);
-      }
-
-      function openModal(message, buttonElement = null) {
-        messageText.textContent = message;
-        messageModal.classList.add("active");
-        document.body.style.overflow = "hidden";
-        
-        // Scroll modal into view if needed
-        setTimeout(() => {
-          const content = document.querySelector(".message-content");
-          if (content) {
-            content.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 100);
-        
-        createConfetti();
-        createFloatingHeart();
-      }
-
-      function closeModal() {
-        messageModal.classList.remove("active");
-        document.body.style.overflow = "";
-      }
-
-      noteButtons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-          const message = button.getAttribute("data-message");
-          openModal(message, button);
-        });
-      });
-
-      closeButton.addEventListener("click", closeModal);
-
-      messageModal.addEventListener("click", (e) => {
-        if (e.target === messageModal) {
-          closeModal();
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && messageModal.classList.contains("active")) {
-          closeModal();
-        }
-      });
-
-      const slides = [
-        {
-          src: "memories-diaries/day-01.jpg",
-          alt: "Day 1 of our ten-day diary together",
-          caption:
-            "Day 1 · our first hug, first date, first kiss. the day i struggled to look at you and then could never take my eyes and hands off you.",
-        },
-        {
-          src: "memories-diaries/day-02.jpg",
-          alt: "Day 2 of our ten-day diary together",
-          caption:
-            "Day 2 · lovey dovey in a cafe and not wanting to let you go.",
-        },
-        {
-          src: "memories-diaries/day-03.jpg",
-          alt: "Day 3 of our ten-day diary together",
-          caption:
-            "Day 3 · my first flowers and riding in the rain to have shawarma with you.",
-        },
-        {
-          src: "memories-diaries/day-04.jpg",
-          alt: "Day 4 of our ten-day diary together",
-          caption: "Day 4 · matcha, silver ring and walking the mall with mommy.",
-        },
-        {
-          src: "memories-diaries/day-05.jpg",
-          alt: "Day 5 of our ten-day diary together",
-          caption: "Day 5 · the day i got to hold you in perfect comfort. having our own little space. long drive, beach, impromptu snack runs",
-        },
-        {
-          src: "memories-diaries/day-06.jpg",
-          alt: "Day 6 of our ten-day diary together",
-          caption: "Day 6 · the day i got to wake up to you and content having you to myself for a day.",
-        },
-        {
-          src: "memories-diaries/day-07.jpg",
-          alt: "Day 7 of our ten-day diary together",
-          caption: "Day 7 · church with you, had you so close to me but unable to touch you, i felt truly clingy that day.",
-        },
-        {
-          src: "memories-diaries/day-08.jpg",
-          alt: "Day 8 of our ten-day diary together",
-          caption: "Day 8 · held your hand through pain, brought you home.",
-        },
-        {
-          src: "memories-diaries/day-09.jpg",
-          alt: "Day 9 of our ten-day diary together",
-          caption: "Day 9 · bike ride with my favourite passenger, morning run, ice-cream with you.",
-        },
-        {
-          src: "memories-diaries/day-10.jpg",
-          alt: "Day 10 of our ten-day diary together",
-          caption:
-            "Day 10 · The last day. gym with you, pep talk in the park, one last meal together, the clock ticking in my head on our time together.",
-        },
-      ];
-
-      const galleryImage = document.querySelector(".gallery-photo img");
-      const galleryCaption = document.querySelector(".gallery-caption");
-      const prevButton = document.querySelector(".gallery-nav.prev");
-      const nextButton = document.querySelector(".gallery-nav.next");
-      const dotsContainer = document.querySelector(".gallery-dots");
-
-      let currentSlide = 0;
-
-      // Dynamically create dots based on slides array
-      slides.forEach((_, index) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.role = "tab";
-        dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
-        dot.setAttribute("aria-label", `Go to memory ${index + 1}`);
-        dot.dataset.index = index;
-        if (index === 0) dot.classList.add("is-active");
-        dot.addEventListener("click", () => setSlide(index));
-        dotsContainer.appendChild(dot);
-      });
-
-      const dots = document.querySelectorAll(".gallery-dots button");
-
-      function setSlide(index) {
-        currentSlide = (index + slides.length) % slides.length;
-        const { src, alt, caption } = slides[currentSlide];
-        
-        // Remove loaded class for fade effect
-        galleryImage.classList.remove("loaded");
-        
-        // Preload image
-        const img = new Image();
-        img.onload = () => {
-          galleryImage.src = src;
-          galleryImage.alt = alt;
-          galleryImage.classList.add("loaded");
-        };
-        img.onerror = () => {
-          galleryImage.src = "";
-          galleryImage.alt = "Image not available";
-          galleryImage.classList.add("loaded");
-        };
-        img.src = src;
-        
-        galleryCaption.textContent = caption;
-        dots.forEach((dot, idx) => {
-          const isActive = idx === currentSlide;
-          dot.classList.toggle("is-active", isActive);
-          dot.setAttribute("aria-selected", String(isActive));
-        });
-        galleryImage.animate?.(
-          [{ transform: "scale(0.98)", opacity: 0.85 }, { transform: "scale(1)", opacity: 1 }],
-          { duration: 500, easing: "ease-out" }
-        );
-      }
-
-      prevButton.addEventListener("click", () => setSlide(currentSlide - 1));
-      nextButton.addEventListener("click", () => setSlide(currentSlide + 1));
-
-      // Keyboard navigation for gallery
-      document.addEventListener("keydown", (e) => {
-        const gallerySection = document.querySelector('[aria-labelledby="gallery-title"]');
-        if (!gallerySection) return;
-        
-        const rect = gallerySection.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isVisible && !messageModal.classList.contains("active")) {
-          if (e.key === "ArrowLeft") {
-            e.preventDefault();
-            setSlide(currentSlide - 1);
-          } else if (e.key === "ArrowRight") {
-            e.preventDefault();
-            setSlide(currentSlide + 1);
-          }
-        }
-      });
-
-      setSlide(0);
-
-      const timeTogetherElement = document.getElementById("time-together");
-      const nextHugElement = document.getElementById("next-hug");
-      const relationshipStart = new Date(Date.UTC(2025, 1, 17, 0, 0, 0));
-      // Set this to the date/time of your next reunion (UTC) or leave as null for placeholder.
-      const nextHugDate = new Date(Date.UTC(2026, 0, 22, 0, 0, 0));
-
-      function formatDuration(ms) {
-        const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-        const seconds = totalSeconds % 60;
-        const totalMinutes = Math.floor(totalSeconds / 60);
-        const minutes = totalMinutes % 60;
-        const totalHours = Math.floor(totalMinutes / 60);
-        const hours = totalHours % 24;
-        const days = Math.floor(totalHours / 24);
-
-        const parts = [];
-        if (days > 0) parts.push(`${days} day${days === 1 ? "" : "s"}`);
-        if (hours > 0 || days > 0) parts.push(`${hours} hour${hours === 1 ? "" : "s"}`);
-        if (minutes > 0 || hours > 0 || days > 0)
-          parts.push(`${minutes} minute${minutes === 1 ? "" : "s"}`);
-        parts.push(`${seconds} second${seconds === 1 ? "" : "s"}`);
-
-        return parts.join(" · ");
-      }
-
-      function updateTimeTogether() {
-        if (!timeTogetherElement) return;
-        const now = new Date();
-        const diff = now.getTime() - relationshipStart.getTime();
-
-        if (diff < 0) {
-          timeTogetherElement.textContent = "Counting down to 17 Feb 2025…";
-          return;
-        }
-
-        timeTogetherElement.textContent = `Together since 17 Feb 2025 · ${formatDuration(diff)}`;
-      }
-
-      function updateNextHugCountdown() {
-        if (!nextHugElement) return;
-        if (!nextHugDate || Number.isNaN(new Date(nextHugDate).getTime())) {
-          nextHugElement.textContent =
-            "Countdown to next hug: i will put a date here soon";
-          return;
-        }
-
-        const now = new Date();
-        const diff = new Date(nextHugDate).getTime() - now.getTime();
-        if (diff <= 0) {
-          nextHugElement.textContent = "It's hug time! 💞";
-          return;
-        }
-
-        nextHugElement.textContent = `Countdown to next hug · ${formatDuration(diff)}`;
-      }
-
-      updateTimeTogether();
-      updateNextHugCountdown();
-      setInterval(updateTimeTogether, 1000);
-      setInterval(updateNextHugCountdown, 1000);
-
       // Scroll animations
       const observerOptions = {
         threshold: 0.1,
@@ -2070,25 +1552,6 @@
           section.classList.add("visible");
         }
       });
-
-      // Secret section reveal
-      /*
-      const secretTrigger = document.getElementById("secretTrigger");
-      const secretSection = document.getElementById("secretSection");
-      let secretsRevealed = false;
-
-      secretTrigger.addEventListener("click", () => {
-        if (!secretsRevealed) {
-          secretSection.classList.add("revealed");
-          secretSection.setAttribute("aria-hidden", "false");
-          secretTrigger.innerHTML = '<span>Our secrets are out</span>';
-          secretTrigger.style.pointerEvents = "none";
-          secretTrigger.style.opacity = "0.6";
-          secretsRevealed = true;
-          createConfetti();
-        }
-      });
-      */
 
     </script>
   </body>

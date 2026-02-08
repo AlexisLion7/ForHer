@@ -72,36 +72,48 @@
         pointer-events: none;
       }
 
-      .heart-frame {
+      .heart-button {
         position: relative;
-        width: min(280px, 70vw);
-        height: min(260px, 65vw);
+        width: min(200px, 55vw);
+        height: min(180px, 50vw);
         margin: 0 auto;
         z-index: 1;
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 24px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
       }
 
-      .heart-frame-image {
+      .heart-button:hover,
+      .heart-button:focus-visible {
+        transform: translateY(-4px);
+      }
+
+      .heart-button.is-pulsing {
+        animation: heart-pulse 1.6s ease-in-out infinite;
+      }
+
+      @keyframes heart-pulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.04);
+        }
+      }
+
+      .heart-button img {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
         object-fit: contain;
+        object-position: center;
+        transform: scale(1);
         filter: drop-shadow(0 12px 24px rgba(58, 44, 81, 0.2));
-      }
-
-      .heart-text {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        color: var(--text-primary);
-        font-weight: 700;
-        font-size: clamp(1.05rem, 2.8vw, 1.25rem);
-        line-height: 1.5;
-        padding: 24px;
-        z-index: 1;
       }
 
       .back-link {
@@ -123,6 +135,7 @@
         font-size: clamp(2.2rem, 5vw, 3rem);
         color: var(--text-primary);
         letter-spacing: 0.3px;
+        animation: fade-up 0.8s ease both;
       }
 
       p {
@@ -135,6 +148,22 @@
         z-index: 1;
       }
 
+      .valentine-message {
+        animation: fade-up 0.8s ease both;
+        animation-delay: 0.2s;
+      }
+
+      .valentine-message span {
+        display: block;
+        opacity: 0;
+        animation: fade-up 0.7s ease forwards;
+      }
+
+      .valentine-message span:nth-child(1) { animation-delay: 0.25s; }
+      .valentine-message span:nth-child(2) { animation-delay: 0.45s; }
+      .valentine-message span:nth-child(3) { animation-delay: 0.65s; }
+      .valentine-message span:nth-child(4) { animation-delay: 0.85s; }
+
       .button-row {
         display: flex;
         flex-wrap: wrap;
@@ -143,6 +172,8 @@
         margin-top: 12px;
         position: relative;
         z-index: 1;
+        animation: fade-up 0.8s ease both;
+        animation-delay: 0.6s;
       }
 
       .answer-button {
@@ -161,12 +192,31 @@
         cursor: pointer;
         box-shadow: 0 10px 24px rgba(58, 44, 81, 0.25);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
       }
 
       .answer-button:hover,
       .answer-button:focus-visible {
         transform: translateY(-3px);
         box-shadow: 0 14px 30px rgba(58, 44, 81, 0.3);
+      }
+
+      .answer-button:active {
+        transform: translateY(-1px) scale(0.98);
+      }
+
+      .answer-button::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .answer-button.is-clicked::after {
+        opacity: 1;
       }
 
       .answer-button.secondary {
@@ -182,38 +232,100 @@
         min-height: 1.4em;
         position: relative;
         z-index: 1;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+
+      .response-message.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .floating-hearts {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .floating-hearts span {
+        position: absolute;
+        bottom: -20px;
+        font-size: 1.1rem;
+        color: rgba(255, 111, 145, 0.65);
+        animation: float-up 2.6s ease-in forwards;
+      }
+
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float-up {
+        0% {
+          transform: translateY(0) scale(0.9);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-180px) scale(1.2);
+          opacity: 0;
+        }
       }
     </style>
   </head>
   <body>
     <main>
       <a class="back-link" href="index.html">Back to home</a>
-      <h1>Will you be my Valentine?</h1>
-      <div class="heart-frame" aria-hidden="true">
+      <h1>Will you be my Valentine, Sneha?</h1>
+      <p class="valentine-message">
+        <span>You already know I am yours.</span>
+        <span>But I thought I would still ask properly, with buttons and everything.</span>
+        <span>So, since I like you a lot (and by a lot, I mean a lot),</span>
+        <span>will you be my Valentine?</span>
+      </p>
+      <button class="heart-button" type="button" id="yesButton" aria-label="Duh">
         <img
-          class="heart-frame-image"
-          src="C:/Users/Admin/.cursor/projects/d-sneha-virtual-letter-for-sneha/assets/valentine_heart_frame_1024.png"
+          src="file:///C:/Users/Admin/.cursor/projects/d-sneha-virtual-letter-for-sneha/assets/c__Users_Admin_AppData_Roaming_Cursor_User_workspaceStorage_c6100cd830a99fd3735cadf06f1263a6_images_image-f64781a8-a699-4af7-bace-e785e60c821c.png"
           alt=""
         />
-        <div class="heart-text">Only you</div>
-      </div>
-      <p>
-        I want this year to be ours, stitched together by small joys, soft moments,
-        and the kind of love that feels like home. If you say yes, I will spend every
-        day reminding you how precious you are to me.
-      </p>
-      <div class="button-row">
-        <button class="answer-button" type="button" id="yesButton">Yes</button>
-      </div>
+      </button>
       <div class="response-message" id="responseMessage" aria-live="polite"></div>
+      <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
     </main>
 
     <script>
       const responseMessage = document.getElementById("responseMessage");
       const yesButton = document.getElementById("yesButton");
+      const floatingHearts = document.getElementById("floatingHearts");
 
       yesButton.addEventListener("click", () => {
-        responseMessage.textContent = "You just made my whole heart smile.";
+        responseMessage.textContent = "Thank you for choosing me too. My heart is yours.";
+        responseMessage.classList.add("visible");
+        yesButton.classList.add("is-clicked");
+        yesButton.classList.add("is-pulsing");
+
+        if (floatingHearts) {
+          for (let i = 0; i < 6; i++) {
+            const heart = document.createElement("span");
+            heart.textContent = "♥";
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 0.4}s`;
+            floatingHearts.appendChild(heart);
+            setTimeout(() => heart.remove(), 2600);
+          }
+        }
+
+        setTimeout(() => yesButton.classList.remove("is-clicked"), 400);
       });
     </script>
   </body>
